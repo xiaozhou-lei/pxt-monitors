@@ -16,11 +16,11 @@
 
 	
 	"monitors.create|block": "CLK引脚 %clk|DIO引脚 %dio|亮度 %intensity|LED数量(1到4) %count",
-    "monitors.monitorsLEDs.intensity|block": "%tm|设置亮度 %val",
-    "monitors.monitorsLEDs.showNumber|block": "%tm|显示数字 %num",
-    "monitors.monitorsLEDs.clear|block": "清除显示 %tm",
-	"monitors.monitorsLEDs.on|block": "打开显示 %tm",
-	"monitors.monitorsLEDs.off|block": "关闭显示 %tm"
+    "monitors.TM1637LEDs.intensity|block": "%tm|设置亮度 %val",
+    "monitors.TM1637LEDs.showNumber|block": "%tm|显示数字 %num",
+    "monitors.TM1637LEDs.clear|block": "清除显示 %tm",
+	"monitors.TM1637LEDs.on|block": "打开显示 %tm",
+	"monitors.TM1637LEDs.off|block": "关闭显示 %tm"
 	
 
 
