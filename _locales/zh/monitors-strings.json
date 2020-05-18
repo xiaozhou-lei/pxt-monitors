@@ -40,7 +40,7 @@
 	"monitors.i2cLcdBacklightOff|block": "关闭背光",
 	
 	
-	"monitors.setpin|block": "初始化引脚 |绿 %GPin|黄 %YPin|红 %RPin",
+	"monitors.setpin|block": "初始化引脚|绿 %GPin|黄 %YPin|红 %RPin",
 	"monitors.ylighton|block": "点亮黄灯",
 	"monitors.ylightoff|block": "熄灭黄灯",
 	"monitors.glighton|block": "点亮绿灯",
