@@ -1580,7 +1580,7 @@ namespace monitors{
     let gpins = 0;
     let ypins = 0;
 
-    //% blockId=setled block="set led pin |g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
+    //% blockId=setpin block="set light pin|g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
     //% weight=70
     export function setpin(GPin: DigitalPin, YPin: DigitalPin, RPin: DigitalPin): void {
         rpins= GPin
