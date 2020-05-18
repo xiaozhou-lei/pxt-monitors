@@ -1467,13 +1467,13 @@ namespace monitors{
         setreg(d)
     }
 
-    function cmd(d: number) {
+    function lcdcmd(d: number) {
         RS = 0
         set(d)
         set(d << 4)
     }
 
-    function dat(d: number) {
+    function lcddat(d: number) {
         RS = 1
         set(d)
         set(d << 4)
@@ -1484,16 +1484,16 @@ namespace monitors{
         i2cAddr = addr
         BK = 8
         RS = 0
-        cmd(0x33)
+        lcdcmd(0x33)
         basic.pause(5)
         set(0x30)
         basic.pause(5)
         set(0x20)
         basic.pause(5)
-        cmd(0x28)
-        cmd(0x0C)
-        cmd(0x06)
-        cmd(0x01)
+        lcdcmd(0x28)
+        lcdcmd(0x0C)
+        lcdcmd(0x06)
+        lcdcmd(0x01)
     }
 
     //% block="showchar $ch|col $x|row $y"   group="1602液晶显示屏"  blockExternalInputs=true
@@ -1505,8 +1505,8 @@ namespace monitors{
         else
             a = 0x80
         a += x
-        cmd(a)
-        dat(ch.charCodeAt(0))
+        lcdcmd(a)
+        lcddat(ch.charCodeAt(0))
     }
 
     //% block="showNumber $n|col $x|row $y"   group="1602液晶显示屏"  blockExternalInputs=true
@@ -1528,38 +1528,38 @@ namespace monitors{
         else
             a = 0x80
         a += x
-        cmd(a)
+        lcdcmd(a)
 
         for (let i = 0; i < s.length; i++) {
-            dat(s.charCodeAt(i))
+            lcddat(s.charCodeAt(i))
         }
     }
 
     //% block="lcdon"   group="1602液晶显示屏"  blockExternalInputs=true
     export function i2cLcdOn(): void {
-        cmd(0x0C)
+        lcdcmd(0x0C)
     }
 
     //% block="lcdoff"   group="1602液晶显示屏"  blockExternalInputs=true
     export function i2cLcdOff(): void {
-        cmd(0x08)
+        lcdcmd(0x08)
     }
 
     //% block="lcdclear"   group="1602液晶显示屏"  blockExternalInputs=true
     export function i2cLcdClear(): void {
-        cmd(0x01)
+        lcdcmd(0x01)
     }
 
     //% block="lcdlighton"   group="1602液晶显示屏"  blockExternalInputs=true
     export function i2cLcdBacklightOn(): void {
         BK = 8
-        dat(0)
+        lcddat(0)
     }
 
     //% block="lcdlightoff"   group="1602液晶显示屏"  blockExternalInputs=true
     export function i2cLcdBacklightOff(): void {
         BK = 0
-        dat(0)
+        lcddat(0)
     }
 	
 
@@ -1576,34 +1576,52 @@ namespace monitors{
 	 * traffic light
 	 */
 
-    export enum colorselect {
-        //% block="RED"
-        RED=0,
-        //% block="YELLOW"
-        YELLOW=0,
-		//% block="GREEN"
-		GREEN=0
-    }
+    let rpins = 0;
+    let gpins = 0;
+    let ypins = 0;
 
-    //% blockId=setled block="set led pin |g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="LED灯"
+    //% blockId=setled block="set led pin |g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
     //% weight=70
     export function setpin(GPin: DigitalPin, YPin: DigitalPin, RPin: DigitalPin): void {
-        RED = GPin
-		YELLOW = YPin
-		GREEN = RPin
+        rpins= GPin
+		ypins = YPin
+		gpins= RPin
     }
 
-    //% blockId=ledon block="ledon |colors %color" blockExternalInputs=false  group="LED灯"
+    //% blockId=yledon block="yellowledon " blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function ledon(color: colorselect): void {
-        pins.digitalWritePin(color,1)
+    export function ylighton(): void {
+        pins.digitalWritePin(ypins,1)
     }
 
-    //% blockId=ledoff block="ledoff |colors %color" blockExternalInputs=false  group="LED灯"
+    //% blockId=yledoff block="yellowledoff " blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function ledoff(color: colorselect): void {
-        pins.digitalWritePin(color,0)
+    export function ylightoff(): void {
+        pins.digitalWritePin(ypins,0)
     }
 
+    //% blockId=gledon block="greenledon " blockExternalInputs=false  group="交通灯"
+    //% weight=70
+    export function glighton(): void {
+        pins.digitalWritePin(gpins,1)
+    }
+
+    //% blockId=gledoff block="greenledoff " blockExternalInputs=false  group="交通灯"
+    //% weight=70
+    export function glightoff(): void {
+        pins.digitalWritePin(gpins,0)
+    }
+
+    //% blockId=rledon block="redledon " blockExternalInputs=false  group="交通灯"
+    //% weight=70
+    export function rlighton(): void {
+        pins.digitalWritePin(rpins,1)
+    }
+
+    //% blockId=rledoff block="redledoff " blockExternalInputs=false  group="交通灯"
+    //% weight=70
+    export function rlightoff(): void {
+        pins.digitalWritePin(rpins,0)
+    }
 }
 

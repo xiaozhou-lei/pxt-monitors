@@ -40,12 +40,13 @@
 	"monitors.i2cLcdBacklightOff|block": "关闭背光",
 	
 	
-	"monitors.colorselect.RED|block": "红",
-	"monitors.colorselect.YELLOW|block": "黄",
-	"monitors.colorselect.GREEN|block": "绿",
 	"monitors.setpin|block": "初始化引脚 |绿 %GPin|黄 %YPin|红 %RPin",
-	"monitors.ledon|block": "点亮|颜色 %color",
-	"monitors.ledoff|block": "熄灭|颜色 %color"
+	"monitors.ylighton|block": "点亮黄灯",
+	"monitors.ylightoff|block": "熄灭黄灯",
+	"monitors.glighton|block": "点亮绿灯",
+	"monitors.glightoff|block": "熄灭绿灯",
+	"monitors.rlighton|block": "点亮红灯",
+	"monitors.rlightoff|block": "熄灭红灯"
 	
 	
 }
