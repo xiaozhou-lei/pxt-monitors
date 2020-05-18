@@ -1583,9 +1583,9 @@ namespace monitors{
     //% blockId=setpin block="set light pin|g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
     //% weight=70
     export function setpin(GPin: DigitalPin, YPin: DigitalPin, RPin: DigitalPin): void {
-        rpins= GPin
+        gpins= GPin
 		ypins = YPin
-		gpins= RPin
+		rpins= RPin
     }
 
     //% blockId=yledon block="yellowledon " blockExternalInputs=false  group="交通灯"
@@ -1623,5 +1623,68 @@ namespace monitors{
     export function rlightoff(): void {
         pins.digitalWritePin(rpins,0)
     }
+
+
+
+
+    
+
+
+
+
+
+
+	/*
+	 * RGB light
+	 */
+
+    let _Rpins = 0;
+    let _Gpins = 0;
+    let _Bpins = 0;
+
+    //% blockId=setrgbpin block="set RGBlight pin|g %_GPin|b %_BPin|r %_RPin" blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function setRGBpin(_GPin: DigitalPin, _BPin: DigitalPin, _RPin: DigitalPin): void {
+        _Gpins= _GPin
+		_Bpins = _BPin
+		_Rpins= _RPin
+    }
+
+    //% blockId=blighton block="blueon " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Blueton(): void {
+        pins.digitalWritePin(_Bpins,1)
+    }
+
+    //% blockId=blightoff block="blueoff " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Blueoff(): void {
+        pins.digitalWritePin(_Bpins,0)
+    }
+
+    //% blockId=glighton block="greenon " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Greenon(): void {
+        pins.digitalWritePin(_Gpins,1)
+    }
+
+    //% blockId=glightoff block="greenoff " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Greenoff(): void {
+        pins.digitalWritePin(_Gpins,0)
+    }
+
+    //% blockId=rlighton block="redon " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Redon(): void {
+        pins.digitalWritePin(_Rpins,1)
+    }
+
+    //% blockId=rlightoff block="redoff " blockExternalInputs=false  group="三色灯"
+    //% weight=70
+    export function Redoff(): void {
+        pins.digitalWritePin(_Rpins,0)
+    }
+
 }
 

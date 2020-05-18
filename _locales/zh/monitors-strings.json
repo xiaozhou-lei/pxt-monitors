@@ -40,13 +40,22 @@
 	"monitors.i2cLcdBacklightOff|block": "关闭背光",
 	
 	
-	"monitors.setpin|block": "初始化引脚|绿 %GPin|黄 %YPin|红 %RPin",
+	"monitors.setpin|block": "初始化引脚|绿(G) %GPin|黄(Y) %YPin|红(R) %RPin",
 	"monitors.ylighton|block": "点亮黄灯",
 	"monitors.ylightoff|block": "熄灭黄灯",
 	"monitors.glighton|block": "点亮绿灯",
 	"monitors.glightoff|block": "熄灭绿灯",
 	"monitors.rlighton|block": "点亮红灯",
-	"monitors.rlightoff|block": "熄灭红灯"
+	"monitors.rlightoff|block": "熄灭红灯",
+
+
+	"monitors.setRGBpin|block": "初始化引脚|绿(G) %GPin|蓝(B) %YPin|红(R) %RPin",
+	"monitors.Blueton|block": "点亮蓝色",
+	"monitors.Blueoff|block": "熄灭蓝色",
+	"monitors.Greenon|block": "点亮绿色",
+	"monitors.Greenoff|block": "熄灭绿色",
+	"monitors.Redon|block": "点亮红色",
+	"monitors.Redoff|block": "熄灭红色"
 	
 	
 }
