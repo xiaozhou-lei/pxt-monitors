@@ -25,23 +25,10 @@
 
     "monitors.setled|block": "设置LED灯引脚为：%SPin",
     "monitors.ledon|block": "点亮",
-	"monitors.ledoff|block": "熄灭",
+	"monitors.ledoff|block": "熄灭"
 	
 	
-	"monitors.setAddress|block": "设置 I2C地址 %myAddr",
-    "monitors.setAddress2|block": "设置 I2C地址 %myAddr",
-    "monitors.setAddress3|block": "自动设置 I2C地址",
-    "monitors.putString|block": "LCD 显示字符串 %s|在坐标 x:%x|y:%y",
-    "monitors.putNumber|block": "LCD 显示数字 %n|在坐标 x:%x|y:%y",
-    "monitors.on_off.on|block":"开",
-    "monitors.on_off.off|block":"关",
-    "monitors.visibled.visible|block":"显示",
-    "monitors.visibled.invisible|block":"隐藏",
-    "monitors.set_LCD_Show|block": "设置字符串 %show",
-    "monitors.set_backlight|block": "设置LCD背光 %on",
-    "monitors.lcdclear|block": "LCD清除屏幕",
-    "monitors.shl|block": "LCD屏幕左移",
-    "monitors.shr|block": "LCD屏幕右移"
+
 
 
 }
