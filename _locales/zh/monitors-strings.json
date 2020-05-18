@@ -15,7 +15,7 @@
 	"monitors.off|block": "关闭显示",
 
 	
-	"monitors.create|block": "CLK引脚 %clk|DIO引脚 %dio|亮度 %intensity|LED数量(1到4) %count",
+	"monitors.TMcreate|block": "CLK引脚 %clk|DIO引脚 %dio|亮度 %intensity|LED数量(1到4) %count",
     "monitors.TM1637LEDs.intensity|block": "%tm|设置亮度 %val",
     "monitors.TM1637LEDs.showNumber|block": "%tm|显示数字 %num",
     "monitors.TM1637LEDs.clear|block": "清除显示 %tm",
@@ -25,10 +25,50 @@
 
     "monitors.setled|block": "设置LED灯引脚为：%SPin",
     "monitors.ledon|block": "点亮",
-	"monitors.ledoff|block": "熄灭"
+	"monitors.ledoff|block": "熄灭",
 	
+	"NeoPixelMode.RGB|block": "RGB（GRB顺序）",
+    "NeoPixelMode.RGBW|block": "RGB+W",
+    "NeoPixelMode.RGB_RGB|block": "RGB（RGB顺序）",
+    "NeoPixelColors.Red|block": "红",
+    "NeoPixelColors.Orange|block": "橙",
+    "NeoPixelColors.Yellow|block": "黄",
+    "NeoPixelColors.Green|block": "緑",
+    "NeoPixelColors.Blue|block": "蓝",
+    "NeoPixelColors.Indigo|block": "靛蓝",
+    "NeoPixelColors.Violet|block": "紫罗兰",
+    "NeoPixelColors.Purple|block": "紫",
+    "NeoPixelColors.White|block": "白",
+    "NeoPixelColors.Black|block": "黑",
+    "monitors.Strip.showColor|block": "%strip|显示颜色%rgb=neopixel_colors",
+    "monitors.Strip.showRainbow|block": "%strip|显示彩虹特效 （色相）从%startHue|到%endHue",
+    "monitors.Strip.showBarGraph|block": "%strip|显示柱状图 值%value|最大值%high",
+    "monitors.Strip.setPixelColor|block": "%strip|设置颜色 像素%pixeloffset|为 %rgb=neopixel_colors",
+    "monitors.Strip.setPixelWhiteLED|block": "%strip|设置白灯(RGB+W) 像素%pixeloffset|为 %white",
+    "monitors.Strip.show|block": "%strip|刷新显示",
+    "monitors.Strip.clear|block": "%strip|清除显示",
+    "monitors.Strip.length|block": "%strip|LED的数目",
+    "monitors.Strip.setBrightness|block": "%strip|设置亮度为 %brightness",
+    "monitors.Strip.easeBrightness|block": "%strip|减小亮度",
+    "monitors.Strip.range|block": "%strip| 从像素%start|开始 长度%length|颗LED",
+    "monitors.Strip.shift|block": "%strip|移动像素 偏移量%offset",
+    "monitors.Strip.rotate|block": "%strip|循环像素 偏移量%offset",
+    "monitors.hsl|block": "色相 %h|饱和度 %s|亮度 %l",
+    "monitors.Strip.power|block": "%strip| 电流(mA)",
+    "monitors.Strip.setMatrixWidth|block": "%strip|设置矩阵宽度 %width|旋转 %rotation|链路 %chain",
+    "monitors.Strip.setMatrixColor|block": "%strip|设置矩阵像素 x %x|y %y|为 %rgb=neopixel_colors",
+    "monitors.RGBcreate|block": "引脚%pin|初始化灯带|%numleds|颗LED（模式%mode|）",
+    "monitors.rgb|block": "RGB（红%red|绿%green|蓝%blue|）",
+
 	
-
-
-
+	"monitors.i2cLcdInit|block": "初始化I2C地址(默认为39) $addr",
+	"monitors.i2cLcdShowChar|block": "显示字符 $ch|列 $x|行 $y",
+	"monitors.i2cLcdShowNumber|block": "显示数字 $n|列 $x|行 $y",
+	"monitors.i2cLcdShowString|block": "显示字符串 $s|列 $x|行 $y",
+	"monitors.i2cLcdOn|block": "打开显示",
+	"monitors.i2cLcdOff|block": "关闭显示",
+	"monitors.i2cLcdClear|block": "清除显示",
+	"monitors.i2cLcdBacklightOn|block": "打开背光",
+	"monitors.i2cLcdBacklightOff|block": "关闭背光"
+	
 }
