@@ -70,7 +70,7 @@ namespace monitors{
         _pinCS = cs
         _matrixNum = num
         // prepare display array (for displaying texts  add extra 8 columns at each side as buffers)
-        for (let i = 0  i < (num + 2) * 8  i++)  _displayArray.push(0)
+        for (let i = 0; i < (num + 2) * 8; i++)  _displayArray.push(0)
         // set micro:bit SPI
         pins.spiPins(mosi, miso, sck)
         pins.spiFormat(8, 3)
@@ -99,7 +99,7 @@ namespace monitors{
     */
     function _registerAll(addressCode: number, data: number) {
         pins.digitalWritePin(_pinCS, 0) // LOAD=LOW, start to receive commands
-        for (let i = 0  i < _matrixNum  i++) {
+        for (let i = 0; i < _matrixNum; i++) {
             // when a MAX7219 received a new command/data set
             // the previous one would be pushed to the next matrix along the chain via DOUT
             pins.spiWrite(addressCode) // command (8 bits)
@@ -114,7 +114,7 @@ namespace monitors{
     function _registerForOne(addressCode: number, data: number, matrixIndex: number) {
         if (matrixIndex <= _matrixNum - 1) {
             pins.digitalWritePin(_pinCS, 0) // LOAD=LOW, start to receive commands
-            for (let i = 0  i < _matrixNum  i++) {
+            for (let i = 0; i < _matrixNum; i++) {
                 // when a MAX7219 received a new command/data set
                 // the previous one would be pushed to the next matrix along the chain via DOUT
                 if (i == matrixIndex) { // send change to target
@@ -134,8 +134,8 @@ namespace monitors{
     */
     function _rotateMatrix(matrix: number[][]): number[][] {
         let tmp = 0
-        for (let i = 0  i < 4  i++) {
-            for (let j = i  j < 7 - i  j++) {
+        for (let i = 0; i < 4; i++) {
+            for (let j = i; j < 7 - i; j++) {
                 tmp = matrix[i][j]
                 if (_rotation == rotation_direction.clockwise) { // clockwise
                     matrix[i][j] = matrix[j][7 - i]
@@ -164,8 +164,8 @@ namespace monitors{
     */
     function _getMatrixFromColumns(columns: number[]): number[][] {
         let matrix: number[][] = getEmptyMatrix()
-        for (let i = 0  i < 8  i++) {
-            for (let j = 7  j >= 0  j--) {
+        for (let i = 0 ; i < 8 ; i++) {
+            for (let j = 7; j >= 0;j--) {
                 if (columns[i] >= 2 ** j) {
                     columns[i] -= 2 ** j
                     matrix[i][j] = 1
@@ -190,10 +190,10 @@ namespace monitors{
         let chrCountdown: number[] = []
         let totalScrollTime = 0
         // clear screen and array
-        for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
+        for (let i = 0; i < _displayArray.length;  i++) _displayArray[i] = 0
         clearAll()
         // get font index of every characters and total scroll time needed
-        for (let i = 0  i < text.length  i++) {
+        for (let i = 0; i < text.length; i++) {
             let index = font.indexOf(text.substr(i, 1))
             if (index >= 0) {
                 characters_index.push(index)
@@ -203,37 +203,37 @@ namespace monitors{
         }
         totalScrollTime += _matrixNum * 8
         // print characters into array and scroll the array
-        for (let i = 0  i < totalScrollTime  i++) {
+        for (let i = 0; i < totalScrollTime; i++) {
             nextChrCountdown -= 1
             if (currentChrIndex < characters_index.length && nextChrCountdown == 0) {
                 // print a character just "outside" visible area
                 currentFontArray = font_matrix[characters_index[currentChrIndex]]
                 if (currentFontArray != null)
-                    for (let j = 0  j < currentFontArray.length  j++)
+                    for (let j = 0; j < currentFontArray.length; j++)
                         _displayArray[printPosition + j] = currentFontArray[j]
                 // wait until current character scrolled into visible area
                 nextChrCountdown = chrCountdown[currentChrIndex]
                 currentChrIndex += 1
             }
             // scroll array (copy all columns to the one before it)
-            for (let j = 0  j < _displayArray.length - 1  j++) {
+            for (let j = 0; j < _displayArray.length - 1;  j++) {
                 _displayArray[j] = _displayArray[j + 1]
             }
             _displayArray[_displayArray.length - 1] = 0
             // write every 8 columns of display array (visible area) to each MAX7219s
             let matrixCountdown = _matrixNum - 1
             let actualMatrixIndex = 0
-            for (let j = 8  j < _displayArray.length - 8  j += 8) {
+            for (let j = 8; j < _displayArray.length - 8; j += 8) {
                 if (matrixCountdown < 0) break
                 if (!_reversed) actualMatrixIndex = matrixCountdown
                 else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
                 if (_rotation == rotation_direction.none) {
-                    for (let k = j  k < j + 8  k++)
+                    for (let k = j; k < j + 8; k++)
                         _registerForOne(_DIGIT[k - j], _displayArray[k], actualMatrixIndex)
                 } else { // rotate matrix if needed
                     let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                     let l = 0
-                    for (let k = j  k < j + 8  k++) tmpColumns[l++] = _displayArray[k]
+                    for (let k = j; k <j + 8; k++) tmpColumns[l++] = _displayArray[k]
                     displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
                 }
                 matrixCountdown--
@@ -250,7 +250,7 @@ namespace monitors{
     export function displayText(text: string, offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
-            for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
+            for (let i = 0; i < _displayArray.length; i++) _displayArray[i] = 0
             clearAll()
         }
         let printPosition = Math.constrain(offset, -8, _displayArray.length - 9) + 8
@@ -259,7 +259,7 @@ namespace monitors{
         let currentChrIndex = 0
         let currentFontArray: number[] = []
         // get font index of every characters
-        for (let i = 0  i < text.length  i++) {
+        for (let i = 0; i < text.length; i++) {
             let index = font.indexOf(text.substr(i, 1))
             if (index >= 0) characters_index.push(index)
         }
@@ -267,7 +267,7 @@ namespace monitors{
         while (currentPosition < _displayArray.length - 8) {
             currentFontArray = font_matrix[characters_index[currentChrIndex]]
             if (currentFontArray != null)
-                for (let j = 0  j < currentFontArray.length  j++)
+                for (let j = 0; j < currentFontArray.length; j++)
                     _displayArray[printPosition++] = currentFontArray[j]
             currentChrIndex += 1
             if (currentChrIndex == characters_index.length) break
@@ -275,17 +275,17 @@ namespace monitors{
         // write every 8 columns of display array (visible area) to each MAX7219s
         let matrixCountdown = _matrixNum - 1
         let actualMatrixIndex = 0
-        for (let i = 8  i < _displayArray.length - 8  i += 8) {
+        for (let i = 8; i < _displayArray.length - 8; i += 8) {
             if (matrixCountdown < 0) break
             if (!_reversed) actualMatrixIndex = matrixCountdown
             else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
             if (_rotation == rotation_direction.none) {
-                for (let j = i  j < i + 8  j++)
+                for (let j = i ; j < i + 8 ; j++)
                     _registerForOne(_DIGIT[j - i], _displayArray[j], actualMatrixIndex)
             } else { // rotate matrix and reverse order if needed
                 let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                 let l = 0
-                for (let j = i  j < i + 8  j++)  tmpColumns[l++] = _displayArray[j]
+                for (let j = i ; j < i + 8 ; j++)  tmpColumns[l++] = _displayArray[j]
                 displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
             }
             matrixCountdown--
@@ -299,28 +299,28 @@ namespace monitors{
     export function displayCustomCharacter(customCharArray: number[], offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
-            for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
+            for (let i = 0; i < _displayArray.length;i++) _displayArray[i] = 0
             clearAll()
         }
         let printPosition: number = Math.constrain(offset, -8, _displayArray.length - 9) + 8
         if (customCharArray != null) {
             // print column data to display array
-            for (let i = 0  i < customCharArray.length  i++)
+            for (let i = 0; i < customCharArray.length; i++)
                 _displayArray[printPosition + i] = customCharArray[i]
             // write every 8 columns of display array (visible area) to each MAX7219s
             let matrixCountdown = _matrixNum - 1
             let actualMatrixIndex = 0
-            for (let i = 8  i < _displayArray.length - 8  i += 8) {
+            for (let i = 8; i < _displayArray.length - 8; i += 8) {
                 if (matrixCountdown < 0) break
                 if (!_reversed) actualMatrixIndex = matrixCountdown
                 else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
                 if (_rotation == rotation_direction.none) {
-                    for (let j = i  j < i + 8  j++)
+                    for (let j = i ; j < i + 8 ; j++)
                         _registerForOne(_DIGIT[j - i], _displayArray[j], actualMatrixIndex)
                 } else { // rotate matrix and reverse order if needed
                     let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                     let l = 0
-                    for (let j = i  j < i + 8  j++) tmpColumns[l++] = _displayArray[j]
+                    for (let j = i ; j < i + 8 ; j++) tmpColumns[l++] = _displayArray[j]
                     displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
                 }
                 matrixCountdown--
@@ -345,10 +345,10 @@ namespace monitors{
                 tempTextArray.push(text.substr(currentIndex + 1, 8))
                 currentIndex += 10
             }
-            for (let i = 0  i < tempTextArray.length  i++) {
+            for (let i = 0; i < tempTextArray.length; i++) {
                 columnNum = 0
                 // read each bit and calculate the decimal sum
-                for (let j = tempTextArray[i].length - 1  j >= 0  j--) {
+                for (let j = tempTextArray[i].length - 1; j >= 0; j--) {
                     currentChr = tempTextArray[i].substr(j, 1)
                     if (currentChr == "1" || currentChr == "0")
                         currentNum = parseInt(currentChr)
@@ -390,7 +390,7 @@ namespace monitors{
         let offsetIndex = 0
         clearAll()
         // print all characters on all matrixs
-        for (let i = 1  i < font_matrix.length  i++) {
+        for (let i = 1; i < font_matrix.length; i++) {
             // print two blank spaces to "reset" a matrix
             displayCustomCharacter(font_matrix[0], offsetIndex * 8, false)
             displayCustomCharacter(font_matrix[0], offsetIndex * 8 + 4, false)
@@ -434,7 +434,7 @@ namespace monitors{
     */
     //% block="Fill all LEDs" group="8X8点阵屏"
     export function fillAll() {
-        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], 255)
+        for (let i = 0; i < 8; i++) _registerAll(_DIGIT[i], 255)
     }
 
     /**
@@ -442,7 +442,7 @@ namespace monitors{
     */
     //% block="Fill LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function fillForOne(index: number) {
-        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], 255, index)
+        for (let i = 0; i < 8; i++) _registerForOne(_DIGIT[i], 255, index)
     }
 
     /**
@@ -450,7 +450,7 @@ namespace monitors{
     */
     //% block="Clear all LEDs" group="8X8点阵屏"
     export function clearAll() {
-        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], 0)
+        for (let i = 0 ; i < 8 ; i++) _registerAll(_DIGIT[i], 0)
     }
 
     /**
@@ -458,7 +458,7 @@ namespace monitors{
     */
     //% block="Clear LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function clearForOne(index: number) {
-        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], 0, index)
+        for (let i = 0 ; i < 8 ; i++) _registerForOne(_DIGIT[i], 0, index)
     }
 
     /**
@@ -466,7 +466,7 @@ namespace monitors{
     */
     //% block="Randomize all LEDs" index.min=0 group="8X8点阵屏"
     export function randomizeAll() {
-        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], Math.randomRange(0, 255))
+        for (let i = 0 ; i < 8 ; i++) _registerAll(_DIGIT[i], Math.randomRange(0, 255))
     }
 
     /**
@@ -474,7 +474,7 @@ namespace monitors{
     */
     //% block="Randomize LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function randomizeForOne(index: number) {
-        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], Math.randomRange(0, 255), index)
+        for (let i = 0 ; i < 8 ; i++) _registerForOne(_DIGIT[i], Math.randomRange(0, 255), index)
     }
 
     /**
@@ -485,10 +485,10 @@ namespace monitors{
         let columnValue = 0
         if (newMatrix != null) {
             if (_rotation != rotation_direction.none) newMatrix = _rotateMatrix(newMatrix) // rotate matrix if needed
-            for (let i = 0  i < 8  i++) {
+            for (let i = 0 ; i < 8 ; i++) {
                 if (newMatrix[i] != null) {
                     columnValue = 0
-                    for (let j = 0  j < 8  j++) {
+                    for (let j = 0 ; j < 8 ; j++) {
                         if (newMatrix[i][j]) {
                             // combine row 0-7 status into a byte number (0-255)
                             columnValue += 2 ** j
@@ -508,10 +508,10 @@ namespace monitors{
         let columnValue = 0
         if (newMatrix != null) {
             if (_rotation != rotation_direction.none) newMatrix = _rotateMatrix(newMatrix) // rotate matrix if needed
-            for (let i = 0  i < 8  i++) {
+            for (let i = 0 ; i < 8 ; i++) {
                 if (newMatrix[i] != null) {
                     columnValue = 0
-                    for (let j = 0  j < 8  j++) {
+                    for (let j = 0 ; j < 8 ; j++) {
                         if (newMatrix[i][j]) {
                             // combine row 0-7 status into a byte number (0-255)
                             columnValue += 2 ** j
@@ -1272,7 +1272,7 @@ namespace monitors{
              * send a byte to 2-wire interface
              */
             _write_byte(b: number) {
-                for (let i = 0  i < 8  i++) {
+                for (let i = 0; i < 8; i++) {
                     pins.digitalWritePin(this.dio, (b >> i) & 1)
                     pins.digitalWritePin(this.clk, 1)
                     pins.digitalWritePin(this.clk, 0)
@@ -1384,7 +1384,7 @@ namespace monitors{
             //% weight=80 blockGap=8
             //% parts="TM1637"
             clear() {
-                for (let i = 0  i < this.count  i++) {
+                for (let i = 0; i < this.count; i++) {
                     this._dat(i, 0)
                     this.buf[i] = 0
                 }
@@ -1445,8 +1445,5 @@ namespace monitors{
 
 
         
-        /**
-         * LCD1602
-         */
- 
+
 }
