@@ -12,6 +12,37 @@ enum rotation_direction {
 //% color="#794044" weight=10 icon="\uf108" block="monitors"
 namespace monitors{
     
+    
+    /**
+     * LED
+     */
+    let ledpin
+
+    //% blockId=setled block="set led pin ：%SPin" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function setled(SPin: DigitalPin): void {
+        ledpin = SPin;
+    }
+
+    //% blockId=ledon block="ledon" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function ledon(): void {
+        pins.digitalWritePin(ledpin,1)
+    }
+
+    //% blockId=ledoff block="ledoff" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function ledoff(): void {
+        pins.digitalWritePin(ledpin,0)
+    }
+
+
+
+
+
+
+
+        
     /**
      * MAX7219  
      */

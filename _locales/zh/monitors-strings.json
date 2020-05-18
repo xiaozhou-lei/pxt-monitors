@@ -36,8 +36,12 @@
     "monitors.set_backlight|block": "设置LCD背光 %on",
     "monitors.clearlcd|block": "LCD清除屏幕",
     "monitors.shl|block": "LCD屏幕左移",
-    "monitors.shr|block": "LCD屏幕右移"
-	
+    "monitors.shr|block": "LCD屏幕右移",
+
+
+    "monitors.setled|block": "设置LED灯引脚为：%SPin",
+    "monitors.ledon|block": "点亮",
+	"monitors.ledoff|block": "熄灭"
 
 
 }
