@@ -37,6 +37,15 @@
 	"monitors.i2cLcdOff|block": "关闭显示",
 	"monitors.i2cLcdClear|block": "清除显示",
 	"monitors.i2cLcdBacklightOn|block": "打开背光",
-	"monitors.i2cLcdBacklightOff|block": "关闭背光"
+	"monitors.i2cLcdBacklightOff|block": "关闭背光",
+	
+	
+	"monitors.colorselect.RED|block": "红",
+	"monitors.colorselect.YELLOW|block": "黄",
+	"monitors.colorselect.GREEN|block": "绿",
+	"monitors.setpin|block": "初始化引脚 |绿 %GPin|黄 %YPin|红 %RPin",
+	"monitors.ledon|block": "点亮|颜色 %color",
+	"monitors.ledoff|block": "熄灭|颜色 %color"
+	
 	
 }

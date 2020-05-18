@@ -1561,5 +1561,49 @@ namespace monitors{
         BK = 0
         dat(0)
     }
+	
+
+
+
+
+
+
+
+
+
+
+	/*
+	 * traffic light
+	 */
+
+    export enum colorselect {
+        //% block="RED"
+        RED=0,
+        //% block="YELLOW"
+        YELLOW=0,
+		//% block="GREEN"
+		GREEN=0
+    }
+
+    //% blockId=setled block="set led pin |g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function setpin(GPin: DigitalPin, YPin: DigitalPin, RPin: DigitalPin): void {
+        RED = GPin
+		YELLOW = YPin
+		GREEN = RPin
+    }
+
+    //% blockId=ledon block="ledon |colors %color" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function ledon(color: colorselect): void {
+        pins.digitalWritePin(color,1)
+    }
+
+    //% blockId=ledoff block="ledoff |colors %color" blockExternalInputs=false  group="LED灯"
+    //% weight=70
+    export function ledoff(color: colorselect): void {
+        pins.digitalWritePin(color,0)
+    }
+
 }
 
