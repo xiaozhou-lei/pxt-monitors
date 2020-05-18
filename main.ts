@@ -16,7 +16,7 @@ namespace monitors{
     /**
      * LED
      */
-    let ledpin
+    let ledpin=0
 
     //% blockId=setled block="set led pin ：%SPin" blockExternalInputs=false  group="LED灯"
     //% weight=70
