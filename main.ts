@@ -21,7 +21,7 @@ namespace monitors{
     //% blockId=setled block="set led pin ：%SPin" blockExternalInputs=false  group="LED灯"
     //% weight=70
     export function setled(SPin: DigitalPin): void {
-        ledpin = SPin;
+        ledpin = SPin
     }
 
     //% blockId=ledon block="ledon" blockExternalInputs=false  group="LED灯"
@@ -48,7 +48,7 @@ namespace monitors{
      */
 	const _NOOP = 0 // no-op (do nothing, doesn't change current status)
 	const _DIGIT = [1, 2, 3, 4, 5, 6, 7, 8] // digit (LED column)
-	const _DECODEMODE = 9 // decode mode (1=on, 0-off; for 7-segment display on MAX7219, no usage here)
+	const _DECODEMODE = 9 // decode mode (1=on, 0-off  for 7-segment display on MAX7219, no usage here)
 	const _INTENSITY = 10 // intensity (LED brightness level, 0-15)
 	const _SCANLIMIT = 11 // scan limit (number of scanned digits)
 	const _SHUTDOWN = 12 // turn on (1) or off (0)
@@ -69,8 +69,8 @@ namespace monitors{
         // set internal variables        
         _pinCS = cs
         _matrixNum = num
-        // prepare display array (for displaying texts; add extra 8 columns at each side as buffers)
-        for (let i = 0; i < (num + 2) * 8; i++)  _displayArray.push(0)
+        // prepare display array (for displaying texts  add extra 8 columns at each side as buffers)
+        for (let i = 0  i < (num + 2) * 8  i++)  _displayArray.push(0)
         // set micro:bit SPI
         pins.spiPins(mosi, miso, sck)
         pins.spiFormat(8, 3)
@@ -99,7 +99,7 @@ namespace monitors{
     */
     function _registerAll(addressCode: number, data: number) {
         pins.digitalWritePin(_pinCS, 0) // LOAD=LOW, start to receive commands
-        for (let i = 0; i < _matrixNum; i++) {
+        for (let i = 0  i < _matrixNum  i++) {
             // when a MAX7219 received a new command/data set
             // the previous one would be pushed to the next matrix along the chain via DOUT
             pins.spiWrite(addressCode) // command (8 bits)
@@ -114,7 +114,7 @@ namespace monitors{
     function _registerForOne(addressCode: number, data: number, matrixIndex: number) {
         if (matrixIndex <= _matrixNum - 1) {
             pins.digitalWritePin(_pinCS, 0) // LOAD=LOW, start to receive commands
-            for (let i = 0; i < _matrixNum; i++) {
+            for (let i = 0  i < _matrixNum  i++) {
                 // when a MAX7219 received a new command/data set
                 // the previous one would be pushed to the next matrix along the chain via DOUT
                 if (i == matrixIndex) { // send change to target
@@ -134,8 +134,8 @@ namespace monitors{
     */
     function _rotateMatrix(matrix: number[][]): number[][] {
         let tmp = 0
-        for (let i = 0; i < 4; i++) {
-            for (let j = i; j < 7 - i; j++) {
+        for (let i = 0  i < 4  i++) {
+            for (let j = i  j < 7 - i  j++) {
                 tmp = matrix[i][j]
                 if (_rotation == rotation_direction.clockwise) { // clockwise
                     matrix[i][j] = matrix[j][7 - i]
@@ -164,8 +164,8 @@ namespace monitors{
     */
     function _getMatrixFromColumns(columns: number[]): number[][] {
         let matrix: number[][] = getEmptyMatrix()
-        for (let i = 0; i < 8; i++) {
-            for (let j = 7; j >= 0; j--) {
+        for (let i = 0  i < 8  i++) {
+            for (let j = 7  j >= 0  j--) {
                 if (columns[i] >= 2 ** j) {
                     columns[i] -= 2 ** j
                     matrix[i][j] = 1
@@ -190,10 +190,10 @@ namespace monitors{
         let chrCountdown: number[] = []
         let totalScrollTime = 0
         // clear screen and array
-        for (let i = 0; i < _displayArray.length; i++) _displayArray[i] = 0
+        for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
         clearAll()
         // get font index of every characters and total scroll time needed
-        for (let i = 0; i < text.length; i++) {
+        for (let i = 0  i < text.length  i++) {
             let index = font.indexOf(text.substr(i, 1))
             if (index >= 0) {
                 characters_index.push(index)
@@ -203,37 +203,37 @@ namespace monitors{
         }
         totalScrollTime += _matrixNum * 8
         // print characters into array and scroll the array
-        for (let i = 0; i < totalScrollTime; i++) {
+        for (let i = 0  i < totalScrollTime  i++) {
             nextChrCountdown -= 1
             if (currentChrIndex < characters_index.length && nextChrCountdown == 0) {
                 // print a character just "outside" visible area
                 currentFontArray = font_matrix[characters_index[currentChrIndex]]
                 if (currentFontArray != null)
-                    for (let j = 0; j < currentFontArray.length; j++)
+                    for (let j = 0  j < currentFontArray.length  j++)
                         _displayArray[printPosition + j] = currentFontArray[j]
                 // wait until current character scrolled into visible area
                 nextChrCountdown = chrCountdown[currentChrIndex]
                 currentChrIndex += 1
             }
             // scroll array (copy all columns to the one before it)
-            for (let j = 0; j < _displayArray.length - 1; j++) {
+            for (let j = 0  j < _displayArray.length - 1  j++) {
                 _displayArray[j] = _displayArray[j + 1]
             }
             _displayArray[_displayArray.length - 1] = 0
             // write every 8 columns of display array (visible area) to each MAX7219s
             let matrixCountdown = _matrixNum - 1
             let actualMatrixIndex = 0
-            for (let j = 8; j < _displayArray.length - 8; j += 8) {
+            for (let j = 8  j < _displayArray.length - 8  j += 8) {
                 if (matrixCountdown < 0) break
                 if (!_reversed) actualMatrixIndex = matrixCountdown
                 else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
                 if (_rotation == rotation_direction.none) {
-                    for (let k = j; k < j + 8; k++)
+                    for (let k = j  k < j + 8  k++)
                         _registerForOne(_DIGIT[k - j], _displayArray[k], actualMatrixIndex)
                 } else { // rotate matrix if needed
                     let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                     let l = 0
-                    for (let k = j; k < j + 8; k++) tmpColumns[l++] = _displayArray[k]
+                    for (let k = j  k < j + 8  k++) tmpColumns[l++] = _displayArray[k]
                     displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
                 }
                 matrixCountdown--
@@ -250,7 +250,7 @@ namespace monitors{
     export function displayText(text: string, offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
-            for (let i = 0; i < _displayArray.length; i++) _displayArray[i] = 0
+            for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
             clearAll()
         }
         let printPosition = Math.constrain(offset, -8, _displayArray.length - 9) + 8
@@ -259,7 +259,7 @@ namespace monitors{
         let currentChrIndex = 0
         let currentFontArray: number[] = []
         // get font index of every characters
-        for (let i = 0; i < text.length; i++) {
+        for (let i = 0  i < text.length  i++) {
             let index = font.indexOf(text.substr(i, 1))
             if (index >= 0) characters_index.push(index)
         }
@@ -267,7 +267,7 @@ namespace monitors{
         while (currentPosition < _displayArray.length - 8) {
             currentFontArray = font_matrix[characters_index[currentChrIndex]]
             if (currentFontArray != null)
-                for (let j = 0; j < currentFontArray.length; j++)
+                for (let j = 0  j < currentFontArray.length  j++)
                     _displayArray[printPosition++] = currentFontArray[j]
             currentChrIndex += 1
             if (currentChrIndex == characters_index.length) break
@@ -275,17 +275,17 @@ namespace monitors{
         // write every 8 columns of display array (visible area) to each MAX7219s
         let matrixCountdown = _matrixNum - 1
         let actualMatrixIndex = 0
-        for (let i = 8; i < _displayArray.length - 8; i += 8) {
+        for (let i = 8  i < _displayArray.length - 8  i += 8) {
             if (matrixCountdown < 0) break
             if (!_reversed) actualMatrixIndex = matrixCountdown
             else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
             if (_rotation == rotation_direction.none) {
-                for (let j = i; j < i + 8; j++)
+                for (let j = i  j < i + 8  j++)
                     _registerForOne(_DIGIT[j - i], _displayArray[j], actualMatrixIndex)
             } else { // rotate matrix and reverse order if needed
                 let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                 let l = 0
-                for (let j = i; j < i + 8; j++)  tmpColumns[l++] = _displayArray[j]
+                for (let j = i  j < i + 8  j++)  tmpColumns[l++] = _displayArray[j]
                 displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
             }
             matrixCountdown--
@@ -299,28 +299,28 @@ namespace monitors{
     export function displayCustomCharacter(customCharArray: number[], offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
-            for (let i = 0; i < _displayArray.length; i++) _displayArray[i] = 0
+            for (let i = 0  i < _displayArray.length  i++) _displayArray[i] = 0
             clearAll()
         }
         let printPosition: number = Math.constrain(offset, -8, _displayArray.length - 9) + 8
         if (customCharArray != null) {
             // print column data to display array
-            for (let i = 0; i < customCharArray.length; i++)
+            for (let i = 0  i < customCharArray.length  i++)
                 _displayArray[printPosition + i] = customCharArray[i]
             // write every 8 columns of display array (visible area) to each MAX7219s
             let matrixCountdown = _matrixNum - 1
             let actualMatrixIndex = 0
-            for (let i = 8; i < _displayArray.length - 8; i += 8) {
+            for (let i = 8  i < _displayArray.length - 8  i += 8) {
                 if (matrixCountdown < 0) break
                 if (!_reversed) actualMatrixIndex = matrixCountdown
                 else actualMatrixIndex = _matrixNum - 1 - matrixCountdown
                 if (_rotation == rotation_direction.none) {
-                    for (let j = i; j < i + 8; j++)
+                    for (let j = i  j < i + 8  j++)
                         _registerForOne(_DIGIT[j - i], _displayArray[j], actualMatrixIndex)
                 } else { // rotate matrix and reverse order if needed
                     let tmpColumns = [0, 0, 0, 0, 0, 0, 0, 0]
                     let l = 0
-                    for (let j = i; j < i + 8; j++) tmpColumns[l++] = _displayArray[j]
+                    for (let j = i  j < i + 8  j++) tmpColumns[l++] = _displayArray[j]
                     displayLEDsForOne(_getMatrixFromColumns(tmpColumns), actualMatrixIndex)
                 }
                 matrixCountdown--
@@ -345,10 +345,10 @@ namespace monitors{
                 tempTextArray.push(text.substr(currentIndex + 1, 8))
                 currentIndex += 10
             }
-            for (let i = 0; i < tempTextArray.length; i++) {
+            for (let i = 0  i < tempTextArray.length  i++) {
                 columnNum = 0
                 // read each bit and calculate the decimal sum
-                for (let j = tempTextArray[i].length - 1; j >= 0; j--) {
+                for (let j = tempTextArray[i].length - 1  j >= 0  j--) {
                     currentChr = tempTextArray[i].substr(j, 1)
                     if (currentChr == "1" || currentChr == "0")
                         currentNum = parseInt(currentChr)
@@ -390,7 +390,7 @@ namespace monitors{
         let offsetIndex = 0
         clearAll()
         // print all characters on all matrixs
-        for (let i = 1; i < font_matrix.length; i++) {
+        for (let i = 1  i < font_matrix.length  i++) {
             // print two blank spaces to "reset" a matrix
             displayCustomCharacter(font_matrix[0], offsetIndex * 8, false)
             displayCustomCharacter(font_matrix[0], offsetIndex * 8 + 4, false)
@@ -434,7 +434,7 @@ namespace monitors{
     */
     //% block="Fill all LEDs" group="8X8点阵屏"
     export function fillAll() {
-        for (let i = 0; i < 8; i++) _registerAll(_DIGIT[i], 255)
+        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], 255)
     }
 
     /**
@@ -442,7 +442,7 @@ namespace monitors{
     */
     //% block="Fill LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function fillForOne(index: number) {
-        for (let i = 0; i < 8; i++) _registerForOne(_DIGIT[i], 255, index)
+        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], 255, index)
     }
 
     /**
@@ -450,7 +450,7 @@ namespace monitors{
     */
     //% block="Clear all LEDs" group="8X8点阵屏"
     export function clearAll() {
-        for (let i = 0; i < 8; i++) _registerAll(_DIGIT[i], 0)
+        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], 0)
     }
 
     /**
@@ -458,7 +458,7 @@ namespace monitors{
     */
     //% block="Clear LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function clearForOne(index: number) {
-        for (let i = 0; i < 8; i++) _registerForOne(_DIGIT[i], 0, index)
+        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], 0, index)
     }
 
     /**
@@ -466,7 +466,7 @@ namespace monitors{
     */
     //% block="Randomize all LEDs" index.min=0 group="8X8点阵屏"
     export function randomizeAll() {
-        for (let i = 0; i < 8; i++) _registerAll(_DIGIT[i], Math.randomRange(0, 255))
+        for (let i = 0  i < 8  i++) _registerAll(_DIGIT[i], Math.randomRange(0, 255))
     }
 
     /**
@@ -474,7 +474,7 @@ namespace monitors{
     */
     //% block="Randomize LEDs on matrix index = $index" index.min=0 group="8X8点阵屏" advanced=true
     export function randomizeForOne(index: number) {
-        for (let i = 0; i < 8; i++) _registerForOne(_DIGIT[i], Math.randomRange(0, 255), index)
+        for (let i = 0  i < 8  i++) _registerForOne(_DIGIT[i], Math.randomRange(0, 255), index)
     }
 
     /**
@@ -485,10 +485,10 @@ namespace monitors{
         let columnValue = 0
         if (newMatrix != null) {
             if (_rotation != rotation_direction.none) newMatrix = _rotateMatrix(newMatrix) // rotate matrix if needed
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0  i < 8  i++) {
                 if (newMatrix[i] != null) {
                     columnValue = 0
-                    for (let j = 0; j < 8; j++) {
+                    for (let j = 0  j < 8  j++) {
                         if (newMatrix[i][j]) {
                             // combine row 0-7 status into a byte number (0-255)
                             columnValue += 2 ** j
@@ -508,10 +508,10 @@ namespace monitors{
         let columnValue = 0
         if (newMatrix != null) {
             if (_rotation != rotation_direction.none) newMatrix = _rotateMatrix(newMatrix) // rotate matrix if needed
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0  i < 8  i++) {
                 if (newMatrix[i] != null) {
                     columnValue = 0
-                    for (let j = 0; j < 8; j++) {
+                    for (let j = 0  j < 8  j++) {
                         if (newMatrix[i][j]) {
                             // combine row 0-7 status into a byte number (0-255)
                             columnValue += 2 ** j
@@ -586,7 +586,7 @@ namespace monitors{
     let font = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")",
         "*", "+", ",", "-", ".", "/",
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-        ":", ";", "<", "=", ">", "?", "@",
+        ":", " ", "<", "=", ">", "?", "@",
         "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
         "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
         "[", "\\", "]", "_", "`",
@@ -1060,7 +1060,7 @@ namespace monitors{
          */
         let COMMAND_I2C_ADDRESS = 0x24
         let DISPLAY_I2C_ADDRESS = 0x34
-        let _SEG = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
+        let _SEG = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71] 
     
         let _intensity = 3
         let dbuf = [0, 0, 0, 0]
@@ -1182,7 +1182,7 @@ namespace monitors{
         //% weight=70 blockGap=8
         export function setIntensity(dat: number) {
             if ((dat < 0) || (dat > 8))
-                return;
+                return 
             if (dat == 0)
                 off()
             else {
@@ -1191,7 +1191,7 @@ namespace monitors{
             }
         }
     
-        on();
+        on() 
             
 
 
@@ -1206,79 +1206,79 @@ namespace monitors{
         /**
          * TM1637
          */
-        let TM1637_CMD1 = 0x40;
-        let TM1637_CMD2 = 0xC0;
-        let TM1637_CMD3 = 0x80;
-        let _SEGMENTS = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71];
+        let TM1637_CMD1 = 0x40
+        let TM1637_CMD2 = 0xC0
+        let TM1637_CMD3 = 0x80
+        let _SEGMENTS = [0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F, 0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71]
     
         /**
          * TM1637 LED display
          */
         export class TM1637LEDs {
-            buf: Buffer;
-            clk: DigitalPin;
-            dio: DigitalPin;
-            _ON: number;
-            brightness: number;
-            count: number;  // number of LEDs
+            buf: Buffer
+            clk: DigitalPin
+            dio: DigitalPin
+            _ON: number
+            brightness: number
+            count: number   // number of LEDs
     
             /**
              * initial TM1637
              */
             init(): void {
-                pins.digitalWritePin(this.clk, 0);
-                pins.digitalWritePin(this.dio, 0);
-                this._ON = 8;
-                this.buf = pins.createBuffer(this.count);
-                this.clear();
+                pins.digitalWritePin(this.clk, 0)
+                pins.digitalWritePin(this.dio, 0)
+                this._ON = 8
+                this.buf = pins.createBuffer(this.count)
+                this.clear()
             }
     
             /**
              * Start 
              */
             _start() {
-                pins.digitalWritePin(this.dio, 0);
-                pins.digitalWritePin(this.clk, 0);
+                pins.digitalWritePin(this.dio, 0)
+                pins.digitalWritePin(this.clk, 0)
             }
     
             /**
              * Stop
              */
             _stop() {
-                pins.digitalWritePin(this.dio, 0);
-                pins.digitalWritePin(this.clk, 1);
-                pins.digitalWritePin(this.dio, 1);
+                pins.digitalWritePin(this.dio, 0)
+                pins.digitalWritePin(this.clk, 1)
+                pins.digitalWritePin(this.dio, 1)
             }
     
             /**
              * send command1
              */
             _write_data_cmd() {
-                this._start();
-                this._write_byte(TM1637_CMD1);
-                this._stop();
+                this._start()
+                this._write_byte(TM1637_CMD1)
+                this._stop()
             }
     
             /**
              * send command3
              */
             _write_dsp_ctrl() {
-                this._start();
-                this._write_byte(TM1637_CMD3 | this._ON | this.brightness);
-                this._stop();
+                this._start()
+                this._write_byte(TM1637_CMD3 | this._ON | this.brightness)
+                this._stop()
             }
     
             /**
              * send a byte to 2-wire interface
              */
             _write_byte(b: number) {
-                for (let i = 0; i < 8; i++) {
-                    pins.digitalWritePin(this.dio, (b >> i) & 1);
-                    pins.digitalWritePin(this.clk, 1);
-                    pins.digitalWritePin(this.clk, 0);
+                for (let i = 0  i < 8  i++) {
+                    pins.digitalWritePin(this.dio, (b >> i) & 1)
+                    pins.digitalWritePin(this.clk, 1)
+                    pins.digitalWritePin(this.clk, 0)
                 }
-                pins.digitalWritePin(this.clk, 1);
-                pins.digitalWritePin(this.clk, 0);
+                pins.digitalWritePin(this.clk, 1)
+                pins.digitalWritePin(this.clk, 0)
             }
     
             /**
@@ -1290,26 +1290,26 @@ namespace monitors{
             //% parts="TM1637"
             intensity(val: number = 7) {
                 if (val < 1) {
-                    this.off();
-                    return;
+                    this.off()
+                    return
                 }
-                if (val > 8) val = 8;
-                this._ON = 8;
-                this.brightness = val - 1;
-                this._write_data_cmd();
-                this._write_dsp_ctrl();
+                if (val > 8) val = 8 
+                this._ON = 8
+                this.brightness = val - 1
+                this._write_data_cmd()
+                this._write_dsp_ctrl()
             }
     
             /**
              * set data to TM1637, with given bit
              */
             _dat(bit: number, dat: number) {
-                this._write_data_cmd();
-                this._start();
+                this._write_data_cmd()
+                this._start()
                 this._write_byte(TM1637_CMD2 | (bit % this.count))
-                this._write_byte(dat);
-                this._stop();
-                this._write_dsp_ctrl();
+                this._write_byte(dat)
+                this._stop()
+                this._write_dsp_ctrl()
             }
     
             /**
@@ -1384,7 +1384,7 @@ namespace monitors{
             //% weight=80 blockGap=8
             //% parts="TM1637"
             clear() {
-                for (let i = 0; i < this.count; i++) {
+                for (let i = 0  i < this.count  i++) {
                     this._dat(i, 0)
                     this.buf[i] = 0
                 }
@@ -1397,9 +1397,9 @@ namespace monitors{
             //% weight=86 blockGap=8
             //% parts="TM1637"
             on() {
-                this._ON = 8;
-                this._write_data_cmd();
-                this._write_dsp_ctrl();
+                this._ON = 8
+                this._write_data_cmd()
+                this._write_dsp_ctrl()
             }
     
             /**
@@ -1409,9 +1409,9 @@ namespace monitors{
             //% weight=85 blockGap=8
             //% parts="TM1637"
             off() {
-                this._ON = 0;
-                this._write_data_cmd();
-                this._write_dsp_ctrl();
+                this._ON = 0
+                this._write_data_cmd()
+                this._write_dsp_ctrl()
             }
         }
     
@@ -1425,14 +1425,14 @@ namespace monitors{
         //% weight=200 blockGap=8
         //% blockId="TM1637_create" block="CLK %clk|DIO %dio|intensity %intensity|LED count %count"  group="1637数码管"
         export function create(clk: DigitalPin, dio: DigitalPin, intensity: number, count: number): TM1637LEDs {
-            let tm = new TM1637LEDs();
-            tm.clk = clk;
-            tm.dio = dio;
-            if ((count < 1) || (count > 5)) count = 4;
-            tm.count = count;
-            tm.brightness = intensity;
-            tm.init();
-            return tm;
+            let tm = new TM1637LEDs()
+            tm.clk = clk
+            tm.dio = dio
+            if ((count < 1) || (count > 5)) count = 4
+            tm.count = count
+            tm.brightness = intensity
+            tm.init()
+            return tm
         }
                     
 
@@ -1448,227 +1448,5 @@ namespace monitors{
         /**
          * LCD1602
          */
-        export let LCD_I2C_ADDR = 0x3f
-        let buf = 0x00
-        let BK = 0x08
-        let RS = 0x00
-        let E = 0x04
-    
-        function setReg(dat: number): void {
-            pins.i2cWriteNumber(LCD_I2C_ADDR, dat, NumberFormat.UInt8BE, false)
-            basic.pause(1)
-        }
-    
-        function send(dat: number): void {
-            let d = dat & 0xF0
-            d |= BK
-            d |= RS
-            setReg(d)
-            setReg(d | 0x04)
-            setReg(d)
-        }
-    
-        function setcmd(cmd: number): void {
-            RS = 0
-            send(cmd)
-            send(cmd << 4)
-        }
-    
-        function setdat(dat: number): void {
-            RS = 1
-            send(dat)
-            send(dat << 4)
-        }
-    
-        export enum I2C_ADDR {
-            //% block="0x27"
-            addr1 = 0x27,
-            //% block="0x3f"
-            addr2 = 0x3f,
-            //% block="0x20"
-            addr3 = 0x20,
-            //% block="0x62"
-            addr4 = 0x62,
-            //% block="0x3e"
-            addr5 = 0x3e
-        }
-        export enum on_off {
-            //% block="on"
-            on = 1,
-            //% block="off"
-            off = 0
-        }
-    
-        export enum visibled {
-            //% block="visibled"
-            visible = 1,
-            //% block="invisibled"
-            invisible = 0
-        }
-    
-        function setI2CAddress(): void {
-            setcmd(0x33)
-            basic.pause(5)
-            send(0x30)
-            basic.pause(5)
-            send(0x20)
-            basic.pause(5)
-            setcmd(0x28)
-            setcmd(0x0C)
-            setcmd(0x06)
-            setcmd(0x01)
-        } 
-    
-        /**
-         * 初始化I2C地址
-         */
-        //% blockId="LCD_setAddress" block="LCD1602 I2C address %myAddr"  group="1602液晶显示屏"
-        //% weight=51 blockExternalInputs=true
-        export function setAddress(myAddr: I2C_ADDR): void {
-            LCD_I2C_ADDR = myAddr
-            setI2CAddress()
-        }
-    
-        /**
-         * 初始化I2C地址（数字）
-         */
-        //% blockId="LCD_setAddress2" block="LCD1602 I2C address %myAddr"  group="1602液晶显示屏"
-        //% weight=50 blockExternalInputs=true
-        export function setAddress2(myAddr: number): void {
-            LCD_I2C_ADDR = myAddr
-            setI2CAddress()
-        }
-    
-        // 自动识别I2C地址 from https://github.com/microbit-makecode-packages/I2CLCD1620_cn/commit/d22eca95d7dae176f40888ce5b88c4605d5ce78c
-        function AutoAddr() {
-            let k = true
-            let addr = 0x20
-            let d1 = 0, d2 = 0
-            while (k && (addr < 0x28)) {
-                pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-                d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-                pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-                d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-                if ((d1 == 7) && (d2 == 0)) k = false
-                else addr += 1
-            }
-            if (!k) return addr
-             addr = 0x38
-            while (k && (addr < 0x40)) {
-                pins.i2cWriteNumber(addr, -1, NumberFormat.Int32LE)
-                d1 = pins.i2cReadNumber(addr, NumberFormat.Int8LE) % 16
-                pins.i2cWriteNumber(addr, 0, NumberFormat.Int16LE)
-                d2 = pins.i2cReadNumber(addr, NumberFormat.Int8LE)
-                if ((d1 == 7) && (d2 == 0)) k = false
-                else addr += 1
-            }
-            if (!k) return addr
-            else return 0
-        }
-    
-        /**
-         * 自动初始化I2C地址
-         */
-        //% blockId="LCD_setAddress3" block="Auto set LCD1602 I2C address"  group="1602液晶显示屏"
-        //% weight=50
-        export function setAddress3(): void {
-            LCD_I2C_ADDR = AutoAddr()
-            setI2CAddress()
-        }
-    
-        /**
-         * 清屏
-         */
-        //% blockId="LCD_clear" block="LCD clear"   group="1602液晶显示屏"
-        //% weight=45
-        export function clearlcd(): void {
-            setcmd(0x01)
-        }
-    
-        /**
-         * 设置背光
-         */
-        //% blockId="LCD_backlight" block="set LCD backlight %on"  group="1602液晶显示屏"
-        //% weight=46
-        export function set_backlight(on: on_off): void {
-            if (on == 1)
-                BK = 0x08
-            else
-                BK = 0x00
-            setcmd(0x00)
-        }
-    
-        /**
-         * 设置字符串显示
-         */
-        //% blockId="LCD_Show" block="set string %show"  group="1602液晶显示屏"
-        //% weight=47
-        export function set_LCD_Show(show: visibled): void {
-            if (show == 1)
-                setcmd(0x0C)
-            else
-                setcmd(0x08)
-        }
-    
-        function printChar(ch: number, x: number, y: number): void {
-            if (x >= 0) {
-                let a = 0x80
-                if (y == 1)
-                    a = 0xC0
-            if (y == 2)
-                    a = 0x80 + 0x14
-                if (y == 3)
-                    a = 0xC0 + 0x14
-                a += x
-                setcmd(a)
-            }
-            setdat(ch)
-        }
-    
-        /**
-         * 打印字符串
-         */
-        //% blockId="LCD_putString" block="LCD show string %s|on x:%x|y:%y"  group="1602液晶显示屏"
-        //% weight=49 blockExternalInputs=true x.min=0 x.max=15 y.min=0 y.max=1
-        export function putString(s: string, x: number, y: number): void {
-            if (s.length > 0) {
-                let breakPoint = -1
-                printChar(s.charCodeAt(0), x, y)
-                if (y == 0)
-                    breakPoint = 16 - x
-                for (let i = 1; i < s.length; i++) {
-                    if (i == breakPoint)
-                        printChar(s.charCodeAt(i), 0, 1)
-                    else
-                        printChar(s.charCodeAt(i), -1, 0)
-                }
-            }
-        }
-        
-        /**
-         * 打印数字
-         */
-        //% blockId="LCD_putNumber" block="LCD show number %n|on x:%x|y:%y"   group="1602液晶显示屏"
-        //% weight=48 blockExternalInputs=true x.min=0 x.max=15 y.min=0 y.max=1
-        export function putNumber(n: number, x: number, y: number): void {
-            putString(n.toString(),x,y)
-        }
-    
-        /**
-         * 屏幕左移
-         */
-        //% blockId="LCD_shl" block="Shift Left"  group="1602液晶显示屏"
-        //% weight=43
-        export function shl(): void {
-            setcmd(0x18)
-        }
-    
-        /**
-         * 屏幕右移
-         */
-        //% blockId="LCD_shr" block="Shift Right"  group="1602液晶显示屏"
-        //% weight=42
-        export function shr(): void {
-            setcmd(0x1C)
-        }
+ 
 }
