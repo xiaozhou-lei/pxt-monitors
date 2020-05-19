@@ -10,7 +10,7 @@
     "files": [
         "README.md",
         "main.ts",
-		"sendBuffer.asm",
+		
 		"_locales/zh/monitors-strings.json"
     ],
     "public": true
