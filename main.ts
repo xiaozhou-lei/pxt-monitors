@@ -17,6 +17,15 @@ enum on_off{
 
 }
 
+enum selectColor{
+	//% block="_yellow"
+	_yellow="ypins",
+	//% block="_red"
+	_red="rpins",
+	//% block="_green"
+	_green="gpins",
+}
+
 
 //% color="#794044" weight=10 icon="\uf108" block="monitors"
 namespace monitors{
@@ -38,6 +47,7 @@ namespace monitors{
 
 
 
+	
 	
 	
 	
@@ -1590,29 +1600,14 @@ namespace monitors{
 		ypins = YPin
 		rpins= RPin
     }
-
-    //% blockId=yledon block="yellowled %_ystatus" blockExternalInputs=false  group="交通灯"
+	
+	//% blockId=yledon block="set light pin  %selectpin|light %_status" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function ylight(_ystatus: on_off): void {
-        pins.digitalWritePin(ypins,_ystatus)
+    export function selectlight(selectpin: selectColor,_status: on_off): void {
+        pins.digitalWritePin(selectpin,_status)
     }
-
-
-    //% blockId=gledon block="greenled %_gstatus" blockExternalInputs=false  group="交通灯"
-    //% weight=70
-    export function glight(_gstatus: on_off): void {
-        pins.digitalWritePin(gpins,_gstatus)
-    }
-
-    
-
-    //% blockId=rledon block="redled %_rstatus" blockExternalInputs=false  group="交通灯"
-    //% weight=70
-    export function rlight(_rstatus: on_off): void {
-        pins.digitalWritePin(rpins,_rstatus)
-    }
-
-   
+	
+  
 
 
 
