@@ -1,0 +1,18 @@
+{
+    "target": "microbit",
+    "targetVersion": "2.2.19",
+    "name": "neopixel",
+    "meta": {},
+    "editor": "tsprj",
+    "pubId": "",
+    "pubCurrent": false,
+    "_rev": null,
+    "id": "2515131b-c741-4176-d23d-77dbd5286890",
+    "recentUse": 1584528798,
+    "modificationTime": 1584528798,
+    "blobId": null,
+    "blobVersion": null,
+    "blobCurrent": false,
+    "isDeleted": false,
+    "path": "pxt-neopixel"
+}
