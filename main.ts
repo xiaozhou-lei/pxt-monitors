@@ -9,7 +9,7 @@ enum rotation_direction {
     one_eighty_degree = 3,
 }
 
-enum on_off{
+enum ledon_off{
     //% block="on"
     _on=1,
     //% block="off"
@@ -17,9 +17,20 @@ enum on_off{
 
 }
 
-enum selectColor{
+
+enum _selectlight{
 	//% block="_yellow"
 	_yellow=0,
+	//% block="_red"
+	_red=1,
+	//% block="_green"
+	_green=2,
+}
+
+
+enum _selectcolor{
+	//% block="_blue"
+	_blue=0,
 	//% block="_red"
 	_red=1,
 	//% block="_green"
@@ -38,7 +49,7 @@ namespace monitors{
     
     //% blockId=setled block="set led ：%lpin|status %lstatus" blockExternalInputs=false  group="LED灯"
     //% weight=70
-    export function setled(lpin: DigitalPin,lstatus: on_off): void {
+    export function setled(lpin: DigitalPin,lstatus: ledon_off): void {
         pins.digitalWritePin(lpin,lstatus)
     }
 
@@ -1601,9 +1612,9 @@ namespace monitors{
 		rpins= RPin
     }
 	
-	//% blockId=yledon block="set light pin  %selectpin|light %_status" blockExternalInputs=false  group="交通灯"
+	//% blockId=selectlight block="set light pin  %selectpin|light %_status" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function selectlight(selectpin: selectColor, _status: on_off): void {
+    export function selectlight(selectpin: _selectlight, _status: ledon_off): void {
         let a;
         if (selectpin == 0)
             a = ypins
@@ -1645,24 +1656,19 @@ namespace monitors{
 		_Rpins= _RPin
     }
 
-    //% blockId=blighton block="blue %bstatus" blockExternalInputs=false  group="三色灯"
+	//% blockId=yledon block="set color pin  %selectpin|light %_status" blockExternalInputs=false  group="三色灯"
     //% weight=70
-    export function Bluecolor(bstatus: on_off): void {
-        pins.digitalWritePin(_Bpins,bstatus)
-    }
-
- 
-    //% blockId=glighton block="green %gstatus" blockExternalInputs=false  group="三色灯"
-    //% weight=70
-    export function Greencolor(gstatus: on_off): void {
-        pins.digitalWritePin(_Gpins,gstatus)
-    }
-
-
-    //% blockId=rlighton block="red %rstatus" blockExternalInputs=false  group="三色灯"
-    //% weight=70
-    export function Redcolor(rstatus: on_off): void {
-        pins.digitalWritePin(_Rpins,rstatus)
+    export function selectcolor(selectpin: _selectcolor, _status: ledon_off): void {
+        let a;
+        if (selectpin == 0)
+            a = _Bpins
+        else if (selectpin == 1){ 
+            a = _Rpins
+        }
+        else if (selectpin == 2) {
+            a = _Gpins
+        }
+        pins.digitalWritePin(a, _status)
     }
 
 

@@ -37,12 +37,17 @@
 	"monitors.i2cLcdBacklightOff|block": "关闭背光",
 	
 	
-	"on_off._on|block": "点亮",
-	"on_off._off|block": "熄灭",
+	"ledon_off._on|block": "点亮",
+	"ledon_off._off|block": "熄灭",
+
 	
-	"selectColor._yellow|block": "黄灯",
-	"selectColor._red|block": "红灯",
-	"selectColor._green|block": "绿灯",
+	"_selectlight._yellow|block": "黄灯",
+	"_selectlight._red|block": "红灯",
+	"_selectlight._green|block": "绿灯",
+
+	"_selectcolor._blue|block": "蓝色",
+	"_selectcolor._red|block": "红色",
+	"_selectcolor._green|block": "绿色",
 	
 	
 	"monitors.setpin|block": "初始化引脚|绿(G) %GPin|黄(Y) %YPin|红(R) %RPin",
@@ -51,9 +56,7 @@
 	
 
 	"monitors.setRGBpin|block": "初始化引脚|绿(G) %GPin|蓝(B) %YPin|红(R) %RPin",
-	"monitors.Bluecolor|block": "蓝色 %bstatus",
-	"monitors.Greencolor|block": "绿色 %gstatus",
-	"monitors.Redcolor|block": "红色 %rstatus"
+	"monitors.selectcolor|block": "选择颜色  %selectpin|状态 %_status"
 	
 
 	
