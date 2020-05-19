@@ -9,6 +9,13 @@ enum rotation_direction {
     one_eighty_degree = 3,
 }
 
+enum on_off{
+    //% block="on"
+    _on=1,
+    //% block="off"
+    _off=0,
+
+}
 
 
 //% color="#794044" weight=10 icon="\uf108" block="monitors"
@@ -1643,10 +1650,11 @@ namespace monitors{
 	/*
 	 * RGB light
 	 */
-
-    let _Rpins = 0;
-    let _Gpins = 0;
-    let _Bpins = 0;
+ 
+    
+    let _Rpins = 0
+    let _Gpins = 0
+    let _Bpins = 0
 
     //% blockId=setrgbpin block="set RGBlight pin|g %_GPin|b %_BPin|r %_RPin" blockExternalInputs=false  group="三色灯"
     //% weight=70
@@ -1656,41 +1664,26 @@ namespace monitors{
 		_Rpins= _RPin
     }
 
-    //% blockId=blighton block="blueon " blockExternalInputs=false  group="三色灯"
+    //% blockId=blighton block="blue %bstatus" blockExternalInputs=false  group="三色灯"
     //% weight=70
-    export function Blueton(): void {
-        pins.digitalWritePin(_Bpins,1)
+    export function Bluecolor(bstatus: on_off): void {
+        pins.digitalWritePin(_Bpins,bstatus)
     }
 
-    //% blockId=blightoff block="blueoff " blockExternalInputs=false  group="三色灯"
+ 
+    //% blockId=glighton block="green %gstatus" blockExternalInputs=false  group="三色灯"
     //% weight=70
-    export function Blueoff(): void {
-        pins.digitalWritePin(_Bpins,0)
+    export function Greencolor(gstatus: on_off): void {
+        pins.digitalWritePin(_Gpins,gstatus)
     }
 
-    //% blockId=glighton block="greenon " blockExternalInputs=false  group="三色灯"
+
+    //% blockId=rlighton block="red %rstatus" blockExternalInputs=false  group="三色灯"
     //% weight=70
-    export function Greenon(): void {
-        pins.digitalWritePin(_Gpins,1)
+    export function Redcolor(rstatus: on_off): void {
+        pins.digitalWritePin(_Rpins,rstatus)
     }
 
-    //% blockId=glightoff block="greenoff " blockExternalInputs=false  group="三色灯"
-    //% weight=70
-    export function Greenoff(): void {
-        pins.digitalWritePin(_Gpins,0)
-    }
-
-    //% blockId=rlighton block="redon " blockExternalInputs=false  group="三色灯"
-    //% weight=70
-    export function Redon(): void {
-        pins.digitalWritePin(_Rpins,1)
-    }
-
-    //% blockId=rlightoff block="redoff " blockExternalInputs=false  group="三色灯"
-    //% weight=70
-    export function Redoff(): void {
-        pins.digitalWritePin(_Rpins,0)
-    }
 
 
 
