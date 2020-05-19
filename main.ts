@@ -47,7 +47,7 @@ namespace monitors{
      * LED
      */
     
-    //% blockId=setled block="set led ：%lpin|status %lstatus" blockExternalInputs=false  group="LED灯"
+    //% blockId=setled block="set led ：%lpin|status %lstatus"   group="LED灯"
     //% weight=70
     export function setled(lpin: DigitalPin,lstatus: ledon_off): void {
         pins.digitalWritePin(lpin,lstatus)
@@ -110,7 +110,7 @@ namespace monitors{
     /**
     * Rotation/reverse order options for 4-in-1 MAX7219 modules
     */
-    //% block="Rotate matrix display $rotation|Reverse printing order $reversed" rotation.defl=rotation_direction.none group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Rotate matrix display $rotation|Reverse printing order $reversed" rotation.defl=rotation_direction.none group="8X8点阵屏"  advanced=true
     export function for_4_in_1_modules(rotation: rotation_direction, reversed: boolean) {
         _rotation = rotation
         _reversed = reversed
@@ -202,7 +202,7 @@ namespace monitors{
     /**
     * Scroll a text accross all MAX7219 matrixs for once
     */
-    //% block="Scroll text $text|delay (ms) $delay|at the end wait (ms) $endDelay" text.defl="Hello world!" delay.min=0 delay.defl=75 endDelay.min=0 endDelay.defl=500 group="8X8点阵屏" blockExternalInputs=true
+    //% block="Scroll text $text|delay (ms) $delay|at the end wait (ms) $endDelay" text.defl="Hello world!" delay.min=0 delay.defl=75 endDelay.min=0 endDelay.defl=500 group="8X8点阵屏" 
     export function scrollText(text: string, delay: number, endDelay: number) {
         let printPosition = _displayArray.length - 8
         let characters_index: number[] = []
@@ -268,7 +268,7 @@ namespace monitors{
     /**
     * Print a text accross the chain of MAX7219 matrixs at a specific spot. Offset value -8 ~ last column of matrixs. You can choose to clear the screen or not (if not it can be used to print multiple string on the MAX7219 chain).
     */
-    //% block="Display text $text|offset $offset|clear screen first $clear" text.defl="Hi!" offset.min=-8 clear.defl=true group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Display text $text|offset $offset|clear screen first $clear" text.defl="Hi!" offset.min=-8 clear.defl=true group="8X8点阵屏"  advanced=true
     export function displayText(text: string, offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
@@ -317,7 +317,7 @@ namespace monitors{
     /**
     * Print a custom character from a number array on the chain of MAX7219 matrixs at a specific spot. Each number in the array is 0-255, the decimal version of column's byte number. Offset value -8 ~ last column of matrixs. You can choose to clear the screen or not (if not it can be used to print multiple string on the MAX7219 chain).
     */
-    //% block="Display custom character from|number array $customCharArray|offset $offset|clear screen first $clear" offset.min=-8 clear.defl=true group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Display custom character from|number array $customCharArray|offset $offset|clear screen first $clear" offset.min=-8 clear.defl=true group="8X8点阵屏"  advanced=true
     export function displayCustomCharacter(customCharArray: number[], offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
@@ -353,7 +353,7 @@ namespace monitors{
     /**
     * Return a number array calculated from a 8x8 LED byte array (example: B00100000,B01000000,B10000110,B10000000,B10000000,B10000110,B01000000,B00100000)
     */
-    //% block="Get custom character number array|from byte-array string $text" text.defl="B00100000,B01000000,B10000110,B10000000,B10000000,B10000110,B01000000,B00100000" group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Get custom character number array|from byte-array string $text" text.defl="B00100000,B01000000,B10000110,B10000000,B10000000,B10000110,B01000000,B00100000" group="8X8点阵屏"  advanced=true
     export function getCustomCharacterArray(text: string) {
         let tempTextArray: string[] = []
         let resultNumberArray: number[] = []
@@ -393,7 +393,7 @@ namespace monitors{
     */
     //% block="Add custom character $chr|number array $customCharArray|to the extension font library"
     //% chr.defl=""
-    //% blockExternalInputs=true
+    //% 
     //% group="8X8点阵屏"
     //% advanced=true
     export function addCustomChr(chr: string, customCharArray: number[]) {
@@ -525,7 +525,7 @@ namespace monitors{
     /**
     * Set LEDs of a specific MAX7219s to a pattern from a 8x8 number matrix variable (index 0=farthest on the chain)
     */
-    //% block="Display 8x8 pattern $newMatrix|on matrix index = $index" index.min=0 blockExternalInputs=true group="8X8点阵屏" advanced=true
+    //% block="Display 8x8 pattern $newMatrix|on matrix index = $index" index.min=0  group="8X8点阵屏" advanced=true
     export function displayLEDsForOne(newMatrix: number[][], index: number) {
         let columnValue = 0
         if (newMatrix != null) {
@@ -582,7 +582,7 @@ namespace monitors{
     /**
     * Return a specific value from a 8x8 number matrix variable
     */
-    //% block="Get value from 8x8 pattern %matrix|x = $x y = $y" x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Get value from 8x8 pattern %matrix|x = $x y = $y" x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏"  advanced=true
     export function getValueFromMatrix(matrix: number[][], x: number, y: number) {
         return matrix[x][y]
     }
@@ -590,7 +590,7 @@ namespace monitors{
     /**
     * Set a specific value in a 8x8 number matrix variable
     */
-    //% block="Set 8x8 pattern %matrix|x = $x y = $y value to $value" value.min=0 value.max=1 x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Set 8x8 pattern %matrix|x = $x y = $y value to $value" value.min=0 value.max=1 x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏"  advanced=true
     export function setValueInMatrix(matrix: number[][], x: number, y: number, value: number) {
         matrix[x][y] = value
     }
@@ -598,7 +598,7 @@ namespace monitors{
     /**
     * Toggle (between 0/1) a specific value in a 8x8 number matrix variable
     */
-    //% block="Toogle value in 8x8 pattern %matrix|x = $x y = $y" x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏" blockExternalInputs=true advanced=true
+    //% block="Toogle value in 8x8 pattern %matrix|x = $x y = $y" x.min=0 x.max=7 y.min=0 y.max=7 group="8X8点阵屏"  advanced=true
     export function toogleValueInMatrix(matrix: number[][], x: number, y: number) {
         if (matrix[x][y] == 1) matrix[x][y] = 0
         else if (matrix[x][y] == 0) matrix[x][y] = 1
@@ -1501,7 +1501,7 @@ namespace monitors{
         set(d << 4)
     }
 
-    //% block="LcdInit $addr" addr.defl="39"  group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="LcdInit $addr" addr.defl="39"  group="1602液晶显示屏"  
     export function i2cLcdInit(addr: number) {
         i2cAddr = addr
         BK = 8
@@ -1518,7 +1518,7 @@ namespace monitors{
         lcdcmd(0x01)
     }
 
-    //% block="showchar $ch|col $x|row $y"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="showchar $ch|col $x|row $y"   group="1602液晶显示屏"  
     export function i2cLcdShowChar(ch: string, x: number, y: number): void {
         let a: number
 
@@ -1531,7 +1531,7 @@ namespace monitors{
         lcddat(ch.charCodeAt(0))
     }
 
-    //% block="showNumber $n|col $x|row $y"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="showNumber $n|col $x|row $y"   group="1602液晶显示屏"  
     export function i2cLcdShowNumber(n: number, x: number, y: number): void {
         let s = n.toString()
         i2cLcdShowString(s, x, y)
@@ -1541,7 +1541,7 @@ namespace monitors{
      * TODO: describe your function here
      * @param value describe value here, eg: 5
      */
-    //% block="showString $s|col $x|row $y"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="showString $s|col $x|row $y"   group="1602液晶显示屏"  
     export function i2cLcdShowString(s: string, x: number, y: number): void {
         let a: number
 
@@ -1557,28 +1557,28 @@ namespace monitors{
         }
     }
 
-    //% block="lcdon"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="lcdon"   group="1602液晶显示屏"  
     export function i2cLcdOn(): void {
         lcdcmd(0x0C)
     }
 
-    //% block="lcdoff"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="lcdoff"   group="1602液晶显示屏"  
     export function i2cLcdOff(): void {
         lcdcmd(0x08)
     }
 
-    //% block="lcdclear"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="lcdclear"   group="1602液晶显示屏"  
     export function i2cLcdClear(): void {
         lcdcmd(0x01)
     }
 
-    //% block="lcdlighton"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="lcdlighton"   group="1602液晶显示屏"  
     export function i2cLcdBacklightOn(): void {
         BK = 8
         lcddat(0)
     }
 
-    //% block="lcdlightoff"   group="1602液晶显示屏"  blockExternalInputs=true
+    //% block="lcdlightoff"   group="1602液晶显示屏"  
     export function i2cLcdBacklightOff(): void {
         BK = 0
         lcddat(0)
@@ -1604,7 +1604,7 @@ namespace monitors{
     let gpins = 0
     let ypins = 0
 
-    //% blockId=setpin block="set light pin|g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
+    //% blockId=setpin block="set light pin|g %GPin|y %YPin|r %RPin"   group="交通灯"
     //% weight=70
     export function setpin(GPin: DigitalPin, YPin: DigitalPin, RPin: DigitalPin): void {
         gpins= GPin
@@ -1612,7 +1612,7 @@ namespace monitors{
 		rpins= RPin
     }
 	
-	//% blockId=selectlight block="set light pin  %selectpin|light %_status" blockExternalInputs=false  group="交通灯"
+	//% blockId=selectlight block="set light pin  %selectpin|light %_status"   group="交通灯"
     //% weight=70
     export function selectlight(selectpin: _selectlight, _status: ledon_off): void {
         let a;
@@ -1648,7 +1648,7 @@ namespace monitors{
     let _Gpins = 0
     let _Bpins = 0
 
-    //% blockId=setrgbpin block="set RGBlight pin|g %_GPin|b %_BPin|r %_RPin" blockExternalInputs=false  group="三色灯"
+    //% blockId=setrgbpin block="set RGBlight pin|g %_GPin|b %_BPin|r %_RPin"   group="三色灯"
     //% weight=70
     export function setRGBpin(_GPin: DigitalPin, _BPin: DigitalPin, _RPin: DigitalPin): void {
         _Gpins= _GPin
@@ -1656,7 +1656,7 @@ namespace monitors{
 		_Rpins= _RPin
     }
 
-	//% blockId=yledon block="set color pin  %selectpin|light %_status" blockExternalInputs=false  group="三色灯"
+	//% blockId=yledon block="set color pin  %selectpin|light %_status"   group="三色灯"
     //% weight=70
     export function selectcolor(selectpin: _selectcolor, _status: ledon_off): void {
         let a;
