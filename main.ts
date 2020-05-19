@@ -19,11 +19,11 @@ enum on_off{
 
 enum selectColor{
 	//% block="_yellow"
-	_yellow="ypins",
+	_yellow=0,
 	//% block="_red"
-	_red="rpins",
+	_red=1,
 	//% block="_green"
-	_green="gpins",
+	_green=2,
 }
 
 
@@ -1603,8 +1603,17 @@ namespace monitors{
 	
 	//% blockId=yledon block="set light pin  %selectpin|light %_status" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function selectlight(selectpin: selectColor,_status: on_off): void {
-        pins.digitalWritePin(selectpin,_status)
+    export function selectlight(selectpin: selectColor, _status: on_off): void {
+        let a;
+        if (selectpin == 0)
+            a = ypins
+        else if (selectpin == 1){ 
+            a = rpins 
+        }
+        else if (selectpin == 2) {
+            a = gpins
+        }
+        pins.digitalWritePin(a, _status)
     }
 	
   
