@@ -26,25 +26,13 @@ namespace monitors{
     /**
      * LED
      */
-    let ledpin=0
-
-    //% blockId=setled block="set led pin ：%SPin" blockExternalInputs=false  group="LED灯"
+    
+    //% blockId=setled block="set led ：%lpin|status %lstatus" blockExternalInputs=false  group="LED灯"
     //% weight=70
-    export function setled(SPin: DigitalPin): void {
-        ledpin = SPin
+    export function setled(lpin: DigitalPin,lstatus: on_off): void {
+        pins.digitalWritePin(lpin,lstatus)
     }
 
-    //% blockId=ledon block="ledon" blockExternalInputs=false  group="LED灯"
-    //% weight=70
-    export function ledon(): void {
-        pins.digitalWritePin(ledpin,1)
-    }
-
-    //% blockId=ledoff block="ledoff" blockExternalInputs=false  group="LED灯"
-    //% weight=70
-    export function ledoff(): void {
-        pins.digitalWritePin(ledpin,0)
-    }
 
 
 
@@ -1585,13 +1573,15 @@ namespace monitors{
 
 
 
+
+
 	/*
 	 * traffic light
 	 */
 
-    let rpins = 0;
-    let gpins = 0;
-    let ypins = 0;
+    let rpins = 0
+    let gpins = 0
+    let ypins = 0
 
     //% blockId=setpin block="set light pin|g %GPin|y %YPin|r %RPin" blockExternalInputs=false  group="交通灯"
     //% weight=70
@@ -1601,41 +1591,28 @@ namespace monitors{
 		rpins= RPin
     }
 
-    //% blockId=yledon block="yellowledon " blockExternalInputs=false  group="交通灯"
+    //% blockId=yledon block="yellowled %_ystatus" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function ylighton(): void {
-        pins.digitalWritePin(ypins,1)
+    export function ylight(_ystatus: on_off): void {
+        pins.digitalWritePin(ypins,_ystatus)
     }
 
-    //% blockId=yledoff block="yellowledoff " blockExternalInputs=false  group="交通灯"
+
+    //% blockId=gledon block="greenled %_gstatus" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function ylightoff(): void {
-        pins.digitalWritePin(ypins,0)
+    export function glight(_gstatus: on_off): void {
+        pins.digitalWritePin(gpins,_gstatus)
     }
 
-    //% blockId=gledon block="greenledon " blockExternalInputs=false  group="交通灯"
+    
+
+    //% blockId=rledon block="redled %_rstatus" blockExternalInputs=false  group="交通灯"
     //% weight=70
-    export function glighton(): void {
-        pins.digitalWritePin(gpins,1)
+    export function rlight(_rstatus: on_off): void {
+        pins.digitalWritePin(rpins,_rstatus)
     }
 
-    //% blockId=gledoff block="greenledoff " blockExternalInputs=false  group="交通灯"
-    //% weight=70
-    export function glightoff(): void {
-        pins.digitalWritePin(gpins,0)
-    }
-
-    //% blockId=rledon block="redledon " blockExternalInputs=false  group="交通灯"
-    //% weight=70
-    export function rlighton(): void {
-        pins.digitalWritePin(rpins,1)
-    }
-
-    //% blockId=rledoff block="redledoff " blockExternalInputs=false  group="交通灯"
-    //% weight=70
-    export function rlightoff(): void {
-        pins.digitalWritePin(rpins,0)
-    }
+   
 
 
 
