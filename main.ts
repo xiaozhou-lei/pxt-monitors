@@ -1107,7 +1107,7 @@ namespace monitors{
         /**
          * turn on display
          */
-        //% blockId="TM650_ON" block="turn on display" group="1650数码管"
+        //% blockId="TM650_ON" block="turn on display" group="TM1650数码管"
         //% weight=50 blockGap=8
         export function on() {
             cmd(_intensity * 16 + 1)
@@ -1116,7 +1116,7 @@ namespace monitors{
         /**
          * turn off display
          */
-        //% blockId="TM650_OFF" block="turn off display" group="1650数码管"
+        //% blockId="TM650_OFF" block="turn off display" group="TM1650数码管"
         //% weight=50 blockGap=8
         export function off() {
             _intensity = 0
@@ -1126,7 +1126,7 @@ namespace monitors{
         /**
          * clear display content
          */
-        //% blockId="TM650_CLEAR" block="clear display" group="1650数码管"
+        //% blockId="TM650_CLEAR" block="clear display" group="TM1650数码管"
         //% weight=40 blockGap=8
         export function clear() {
             dat(0, 0)
@@ -1141,7 +1141,7 @@ namespace monitors{
          * @param digit is number (0-15) will be shown, eg: 1
          * @param bit is position, eg: 0
          */
-        //% blockId="TM650_DIGIT" block="show digit %num|at %bit" advanced=true  group="1650数码管"
+        //% blockId="TM650_DIGIT" block="show digit %num|at %bit" advanced=true  group="TM1650数码管"
         //% weight=80 blockGap=8
         //% num.max=15 num.min=0
         export function digit(num: number, bit: number) {
@@ -1153,7 +1153,7 @@ namespace monitors{
          * show a number in display
          * @param num is number will be shown, eg: 100
          */
-        //% blockId="TM650_SHOW_NUMBER" block="show number %num"  group="1650数码管"
+        //% blockId="TM650_SHOW_NUMBER" block="show number %num"  group="TM1650数码管"
         //% weight=100 blockGap=8
         export function showNumber(num: number) {
             if (num < 0) {
@@ -1171,7 +1171,7 @@ namespace monitors{
          * show a number in hex format
          * @param num is number will be shown, eg: 123
          */
-        //% blockId="TM650_SHOW_HEX_NUMBER" block="show hex number %num" advanced=true  group="1650数码管"
+        //% blockId="TM650_SHOW_HEX_NUMBER" block="show hex number %num" advanced=true  group="TM1650数码管"
         //% weight=90 blockGap=8
         export function showHex(num: number) {
             if (num < 0) {
@@ -1190,7 +1190,7 @@ namespace monitors{
          * @param bit is positiion, eg: 0
          * @param show is true/false, eg: true
          */
-        //% blockId="TM650_SHOW_DP" block="show dot point %bit|show %num" advanced=true  group="1650数码管"
+        //% blockId="TM650_SHOW_DP" block="show dot point %bit|show %num" advanced=true  group="TM1650数码管"
         //% weight=80 blockGap=8
         export function showDpAt(bit: number, show: boolean) {
             if (show) dat(bit, dbuf[bit % 4] | 0x80)
@@ -1201,7 +1201,7 @@ namespace monitors{
          * set display intensity
          * @param dat is intensity of the display, eg: 3
          */
-        //% blockId="TM650_INTENSITY" block="set intensity %dat"   group="1650数码管"
+        //% blockId="TM650_INTENSITY" block="set intensity %dat"   group="TM1650数码管"
         //% weight=70 blockGap=8
         export function setIntensity(dat: number) {
             if ((dat < 0) || (dat > 8))
@@ -1308,7 +1308,7 @@ namespace monitors{
              * set TM1637 intensity, range is [0-8], 0 is off.
              * @param val the brightness of the TM1637, eg: 7
              */
-            //% blockId="TM1637_set_intensity" block="%tm|set intensity %val"  group="1637数码管"
+            //% blockId="TM1637_set_intensity" block="%tm|set intensity %val"  group="TM1637数码管"
             //% weight=50 blockGap=8
             //% parts="TM1637"
             intensity(val: number = 7) {
@@ -1340,7 +1340,7 @@ namespace monitors{
              * @param num number will show, eg: 5
              * @param bit the position of the LED, eg: 0
              */
-            //% blockId="TM1637_showbit" block="%tm|show digit %num |at %bit" advanced=true  group="1637数码管"
+            //% blockId="TM1637_showbit" block="%tm|show digit %num |at %bit" advanced=true  group="TM1637数码管"
             //% weight=90 blockGap=8
             //% parts="TM1637"
             showbit(num: number = 5, bit: number = 0) {
@@ -1352,7 +1352,7 @@ namespace monitors{
               * show a number. 
               * @param num is a number, eg: 0
               */
-            //% blockId="TM1637_shownum" block="%tm|show number %num"  group="1637数码管"
+            //% blockId="TM1637_shownum" block="%tm|show number %num"  group="TM1637数码管"
             //% weight=91 blockGap=8
             //% parts="TM1637"
             showNumber(num: number) {
@@ -1371,7 +1371,7 @@ namespace monitors{
               * show a hex number. 
               * @param num is a hex number, eg: 0
               */
-            //% blockId="TM1637_showhex" block="%tm|show hex number %num" advanced=true  group="1637数码管"
+            //% blockId="TM1637_showhex" block="%tm|show hex number %num" advanced=true  group="TM1637数码管"
             //% weight=90 blockGap=8
             //% parts="TM1637"
             showHex(num: number) {
@@ -1391,7 +1391,7 @@ namespace monitors{
              * @param bit is the position, eg: 1
              * @param show is show/hide dp, eg: true
              */
-            //% blockId="TM1637_showDP" block="%tm|DotPoint at %bit|show %show" advanced=true  group="1637数码管"
+            //% blockId="TM1637_showDP" block="%tm|DotPoint at %bit|show %show" advanced=true  group="TM1637数码管"
             //% weight=70 blockGap=8
             //% parts="TM1637"
             showDP(bit: number = 1, show: boolean = true) {
@@ -1403,7 +1403,7 @@ namespace monitors{
             /**
              * clear LED. 
              */
-            //% blockId="TM1637_clear" block="clear %tm"  group="1637数码管"
+            //% blockId="TM1637_clear" block="clear %tm"  group="TM1637数码管"
             //% weight=80 blockGap=8
             //% parts="TM1637"
             clear() {
@@ -1416,7 +1416,7 @@ namespace monitors{
             /**
              * turn on LED. 
              */
-            //% blockId="TM1637_on" block="turn on %tm"  group="1637数码管"
+            //% blockId="TM1637_on" block="turn on %tm"  group="TM1637数码管"
             //% weight=86 blockGap=8
             //% parts="TM1637"
             on() {
@@ -1428,7 +1428,7 @@ namespace monitors{
             /**
              * turn off LED. 
              */
-            //% blockId="TM1637_off" block="turn off %tm"  group="1637数码管"
+            //% blockId="TM1637_off" block="turn off %tm"  group="TM1637数码管"
             //% weight=85 blockGap=8
             //% parts="TM1637"
             off() {
@@ -1446,7 +1446,7 @@ namespace monitors{
          * @param count the count of the LED, eg: 4
          */
         //% weight=200 blockGap=8
-        //% blockId="TM1637_create" block="CLK %clk|DIO %dio|intensity %intensity|LED count %count"  group="1637数码管"
+        //% blockId="TM1637_create" block="CLK %clk|DIO %dio|intensity %intensity|LED count %count"  group="TM1637数码管"
         export function TMcreate(clk: DigitalPin, dio: DigitalPin, intensity: number, count: number): TM1637LEDs {
             let tm = new TM1637LEDs()
             tm.clk = clk
@@ -1470,7 +1470,7 @@ namespace monitors{
 
 
 	/**
-	 *  1602LCD
+	 *  LCD 1602
 	 */	
 		
 	let i2cAddr: number
@@ -1502,7 +1502,7 @@ namespace monitors{
         set(d << 4)
     }
 
-    //% block="LcdInit $addr" addr.defl="39"  group="1602液晶显示屏"  
+    //% block="LcdInit $addr" addr.defl="39"  group="LCD1602显示屏"  
     export function i2cLcdInit(addr: number) {
         i2cAddr = addr
         BK = 8
@@ -1519,7 +1519,7 @@ namespace monitors{
         lcdcmd(0x01)
     }
 
-    //% block="showchar $ch|col $x|row $y"   group="1602液晶显示屏"  
+    //% block="showchar $ch|col $x|row $y"   group="LCD1602显示屏"  
     export function i2cLcdShowChar(ch: string, x: number, y: number): void {
         let a: number
 
@@ -1532,7 +1532,7 @@ namespace monitors{
         lcddat(ch.charCodeAt(0))
     }
 
-    //% block="showNumber $n|col $x|row $y"   group="1602液晶显示屏"  
+    //% block="showNumber $n|col $x|row $y"   group="LCD1602显示屏"  
     export function i2cLcdShowNumber(n: number, x: number, y: number): void {
         let s = n.toString()
         i2cLcdShowString(s, x, y)
@@ -1542,7 +1542,7 @@ namespace monitors{
      * TODO: describe your function here
      * @param value describe value here, eg: 5
      */
-    //% block="showString $s|col $x|row $y"   group="1602液晶显示屏"  
+    //% block="showString $s|col $x|row $y"   group="LCD1602显示屏"  
     export function i2cLcdShowString(s: string, x: number, y: number): void {
         let a: number
 
@@ -1558,31 +1558,31 @@ namespace monitors{
         }
     }
 
-    //% block="lcdon"   group="1602液晶显示屏"  
+    //% block="lcdon"   group="LCD1602显示屏"  
     export function i2cLcdOn(): void {
         lcdcmd(0x0C)
     }
 
-    //% block="lcdoff"   group="1602液晶显示屏"  
+    //% block="lcdoff"   group="LCD1602显示屏"  
     export function i2cLcdOff(): void {
         lcdcmd(0x08)
     }
 
-    //% block="lcdclear"   group="1602液晶显示屏"  
+    //% block="lcdclear"   group="LCD1602显示屏"  
     export function i2cLcdClear(): void {
         lcdcmd(0x01)
     }
 
-    //% block="lcdlighton"   group="1602液晶显示屏"  
+    //% block="lcdlighton"   group="LCD1602显示屏"  
     export function i2cLcdBacklightOn(): void {
         BK = 8
-        lcddat(0)
+        lcdcmd(0)
     }
 
-    //% block="lcdlightoff"   group="1602液晶显示屏"  
+    //% block="lcdlightoff"   group="LCD1602显示屏"  
     export function i2cLcdBacklightOff(): void {
         BK = 0
-        lcddat(0)
+        lcdcmd(0)
     }
 	
 
