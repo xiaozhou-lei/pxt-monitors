@@ -4,7 +4,9 @@
     "description": "PH2.0显示器",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "neopixel": "github:KittenBot/pxt-neopixel"
+
 		
     },
     "files": [
