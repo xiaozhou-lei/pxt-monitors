@@ -56,7 +56,7 @@
 	
 
 	"monitors.setRGBpin|block": "初始化引脚|绿(G) %GPin|蓝(B) %YPin|红(R) %RPin",
-	"monitors.selectcolor|block": "选择颜色  %selectpin|状态 %_status"
+	"monitors.selectcolor|block": "选择颜色  %selectpin|状态 %_status",
 	
 
 	
