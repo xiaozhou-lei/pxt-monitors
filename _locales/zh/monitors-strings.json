@@ -1,63 +1,10 @@
 {
 	"monitors|block": "显示器",
-	"monitors.setup|block": "初始化|矩阵数(一般为1) $num|CS引脚 $cs|DIN引脚 $mosi|CLK引脚 $sck|MISO引脚(已禁用) $miso",
-	"monitors.scrollText|block": "滚动字符 $text|延时(ms) $delay|最后停留时间(ms) $endDelay",
+	"monitors.setup|block": "初始化矩阵数(一般为1) $numCS引脚$csDIN引脚$mosiCLK引脚$sck",
+	"monitors.scrollText|block": "滚动字符 $text延时(ms) $delay最后停留时间(ms) $endDelay",
 	"monitors.brightnessAll|block": "设置亮度 $level",
 	"monitors.fillAll|block": "全屏点亮",
 	"monitors.clearAll|block": "全屏熄灭",
-	"monitors.randomizeAll|block": "随机点亮",
-
-	
-    "monitors.setIntensity|block": "%tm|设置亮度 %dat",
-    "monitors.showNumber|block": "%tm|显示数字 %num",
-    "monitors.clear|block": "清除显示",
-	"monitors.on|block": "打开显示",
-	"monitors.off|block": "关闭显示",
-
-	
-	"monitors.TMcreate|block": "CLK引脚 %clk|DIO引脚 %dio|亮度 %intensity|LED数量(1到4) %count",
-    "monitors.TM1637LEDs.intensity|block": "%tm|设置亮度 %val",
-    "monitors.TM1637LEDs.showNumber|block": "%tm|显示数字 %num",
-    "monitors.TM1637LEDs.clear|block": "清除显示 %tm",
-	"monitors.TM1637LEDs.on|block": "打开显示 %tm",
-	"monitors.TM1637LEDs.off|block": "关闭显示 %tm",
-
-
-    "monitors.setled|block": "设置LED灯引脚：%lpin|状态 %lstatus",
-    
-	
-	"monitors.i2cLcdInit|block": "初始化I2C地址(默认为39) $addr",
-	"monitors.i2cLcdShowChar|block": "显示字符 $ch|列 $x|行 $y",
-	"monitors.i2cLcdShowNumber|block": "显示数字 $n|列 $x|行 $y",
-	"monitors.i2cLcdShowString|block": "显示字符串 $s|列 $x|行 $y",
-	"monitors.i2cLcdOn|block": "打开显示",
-	"monitors.i2cLcdOff|block": "关闭显示",
-	"monitors.i2cLcdClear|block": "清除显示",
-	"monitors.i2cLcdBacklightOn|block": "打开背光",
-	"monitors.i2cLcdBacklightOff|block": "关闭背光",
-	
-	
-	"ledon_off._on|block": "点亮",
-	"ledon_off._off|block": "熄灭",
-
-	
-	"_selectlight._yellow|block": "黄灯",
-	"_selectlight._red|block": "红灯",
-	"_selectlight._green|block": "绿灯",
-
-	"_selectcolor._blue|block": "蓝色",
-	"_selectcolor._red|block": "红色",
-	"_selectcolor._green|block": "绿色",
-	
-	
-	"monitors.setpin|block": "初始化引脚|绿(G) %GPin|黄(Y) %YPin|红(R) %RPin",
-	"monitors.selectlight|block": "选择LED灯  %selectpin|状态 %_status",
-	
-	
-
-	"monitors.setRGBpin|block": "初始化引脚|绿(G) %GPin|蓝(B) %YPin|红(R) %RPin",
-	"monitors.selectcolor|block": "选择颜色  %selectpin|状态 %_status"
-
-	
+	"monitors.randomizeAll|block": "随机点亮"
 	
 }
