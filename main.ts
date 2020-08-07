@@ -23,6 +23,7 @@ namespace monitors{
     */
     //% block="Setup MAX7219:|Number of matrixs $num|CS(LOAD) = $cs|MOSI(DIN) = $mosi|MISO(not used) = $miso|SCK(CLK) = $sck"
     //% num.min=1 num.defl=1 cs.defl=DigitalPin.P16 mosi.defl=DigitalPin.P15  sck.defl=DigitalPin.P13 rotate.defl=false group="8X8点阵屏"
+    //% weight=99
     export function setup(num: number, cs: DigitalPin, mosi: DigitalPin, sck: DigitalPin) {
         // set internal variables        
         _pinCS = cs
@@ -47,6 +48,7 @@ namespace monitors{
     * Rotation/reverse order options for 4-in-1 MAX7219 modules
     */
     //% block="Rotate matrix display $rotation|Reverse printing order $reversed" rotation.defl=rotation_direction.none group="8X8点阵屏"  advanced=true
+	//% weight=98
     export function for_4_in_1_modules(rotation: rotation_direction, reversed: boolean) {
         _rotation = rotation
         _reversed = reversed
@@ -139,7 +141,8 @@ namespace monitors{
     * Scroll a text accross all MAX7219 matrixs for once
     */
     //% block="Scroll text $text|delay (ms) $delay|at the end wait (ms) $endDelay" text.defl="Hello world!" delay.min=0 delay.defl=75 endDelay.min=0 endDelay.defl=500 group="8X8点阵屏" 
-    export function scrollText(text: string, delay: number, endDelay: number) {
+    //% weight=97
+	export function scrollText(text: string, delay: number, endDelay: number) {
         let printPosition = _displayArray.length - 8
         let characters_index: number[] = []
         let currentChrIndex = 0
@@ -205,6 +208,7 @@ namespace monitors{
     * Print a text accross the chain of MAX7219 matrixs at a specific spot. Offset value -8 ~ last column of matrixs. You can choose to clear the screen or not (if not it can be used to print multiple string on the MAX7219 chain).
     */
     //% block="Display text $text|offset $offset|clear screen first $clear" text.defl="Hi!" offset.min=-8 clear.defl=true group="8X8点阵屏"  advanced=true
+	//% weight=95
     export function displayText(text: string, offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
@@ -254,7 +258,8 @@ namespace monitors{
     * Print a custom character from a number array on the chain of MAX7219 matrixs at a specific spot. Each number in the array is 0-255, the decimal version of column's byte number. Offset value -8 ~ last column of matrixs. You can choose to clear the screen or not (if not it can be used to print multiple string on the MAX7219 chain).
     */
     //% block="Display custom character from|number array $customCharArray|offset $offset|clear screen first $clear" offset.min=-8 clear.defl=true group="8X8点阵屏"  advanced=true
-    export function displayCustomCharacter(customCharArray: number[], offset: number, clear: boolean) {
+    //% weight=94
+	export function displayCustomCharacter(customCharArray: number[], offset: number, clear: boolean) {
         // clear screen and array if needed
         if (clear) {
             for (let i = 0; i < _displayArray.length;i++) _displayArray[i] = 0
@@ -290,7 +295,8 @@ namespace monitors{
     * Return a number array calculated from a 8x8 LED byte array (example: B00100000,B01000000,B10000110,B10000000,B10000000,B10000110,B01000000,B00100000)
     */
     //% block="Get custom character number array|from byte-array string $text" text.defl="B00100000,B01000000,B10000110,B10000000,B10000000,B10000110,B01000000,B00100000" group="8X8点阵屏"  advanced=true
-    export function getCustomCharacterArray(text: string) {
+    //% weight=92
+	export function getCustomCharacterArray(text: string) {
         let tempTextArray: string[] = []
         let resultNumberArray: number[] = []
         let currentIndex = 0
@@ -391,6 +397,7 @@ namespace monitors{
     * Turn on all LEDs on all MAX7219s
     */
     //% block="Fill all LEDs" group="8X8点阵屏"
+	//% weight=90
     export function fillAll() {
         for (let i = 0; i < 8; i++) _registerAll(_DIGIT[i], 255)
     }
@@ -407,6 +414,7 @@ namespace monitors{
     * Turn off LEDs on all MAX7219s
     */
     //% block="Clear all LEDs" group="8X8点阵屏"
+	//% weight=88
     export function clearAll() {
         for (let i = 0 ; i < 8 ; i++) _registerAll(_DIGIT[i], 0)
     }
@@ -423,6 +431,7 @@ namespace monitors{
     * Turn on LEDs randomly on all MAX7219s
     */
     //% block="Randomize all LEDs" index.min=0 group="8X8点阵屏"
+	//% weight=85
     export function randomizeAll() {
         for (let i = 0 ; i < 8 ; i++) _registerAll(_DIGIT[i], Math.randomRange(0, 255))
     }
