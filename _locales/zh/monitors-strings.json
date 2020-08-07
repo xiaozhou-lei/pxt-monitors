@@ -1,6 +1,6 @@
 {
 	"monitors|block": "显示器",
-	"monitors.setup|block": "初始化矩阵数(一般为1) $numCS引脚$csDIN引脚$mosiCLK引脚$sck",
+	"monitors.setup|block": "初始化矩阵数(一般为1) $num |CS引脚$cs |DIN引脚$mosi |CLK引脚$sck",
 	"monitors.scrollText|block": "滚动字符 $text延时(ms) $delay最后停留时间(ms) $endDelay",
 	"monitors.brightnessAll|block": "设置亮度 $level",
 	"monitors.fillAll|block": "全屏点亮",
