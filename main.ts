@@ -1,3 +1,13 @@
+enum rotation_direction {
+    //% block="none"
+    none = 0,
+    //% block="clockwise"
+    clockwise = 1,
+    //% block="counter-clockwise"
+    counterclockwise = 2,
+    //% block="180-degree"
+    one_eighty_degree = 3,
+}
 
 //% color="#794044" weight=10 icon="\uf108" block="monitors"
 namespace monitors{     
